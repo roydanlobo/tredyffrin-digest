@@ -51,7 +51,8 @@ WHAT IT DOESN'T DO YET (left for a real build-out)
 
 REQUIREMENTS
 ------------
-    pip install requests pdfplumber anthropic
+    pip install requests pdfplumber anthropic playwright
+    playwright install chromium
 
     export ANTHROPIC_API_KEY=sk-...
 
@@ -59,16 +60,15 @@ REQUIREMENTS
     # Get this from Buttondown Settings > Programming > API Key.
     export BUTTONDOWN_API_KEY=...
 
-NOTE ON THIS SANDBOX
----------------------
-Outbound requests to tredyffrin.org were blocked by this sandbox's
-network proxy (confirmed via a 403 on the CONNECT tunnel), so the
-download step below could not be exercised end-to-end here — the
-digest content in the prototype HTML was produced by fetching the PDFs
-through the assistant's own web-fetch tool instead, then hand-written
-into the page. This script is written to run in a normal environment
-(a laptop, a server, a scheduled job) where that restriction doesn't
-apply.
+NOTE ON tredyffrin.org's BOT PROTECTION
+----------------------------------------
+tredyffrin.org sits behind a WAF that blocks plain HTTP clients (like
+`requests`, even with full browser-matching headers) but allows real
+browsers through — pointing to TLS/behavioral fingerprinting rather than
+a simple header check. download_pdf() below uses a headless Chromium
+browser (via Playwright) instead of `requests` specifically to get past
+this. If tredyffrin.org changes its protection again and this stops
+working, --file (pointing at a manually-downloaded copy) is the fallback.
 
 USAGE
 -----
@@ -124,42 +124,69 @@ SOURCE MINUTES TEXT:
 
 
 def download_pdf(url: str, dest: Path) -> Path:
-    import requests
+    """Download a minutes/agenda PDF from tredyffrin.org.
 
-    # A bare "Mozilla/5.0" User-Agent is a weak signature that some
-    # municipal-site WAFs flag as non-browser traffic and reject with a 403
-    # even when the file genuinely exists. This is a fuller, more
-    # browser-realistic header set to reduce that risk. If a 403 still
-    # happens on a URL you've confirmed is real (check the meeting's page
-    # on tredyffrin.org directly), that's the site actively blocking
-    # automated requests rather than a missing file, and worth a look at
-    # tredyffrin.org's robots.txt / terms before working around it further.
-    # The PDF lives under /files/assets/... — a classic hotlink-protection
-    # pattern, where the server checks that the request's Referer looks like
-    # it came from clicking a link on their own site, not a bare script
-    # request. Since we only have the direct PDF URL here (not the specific
-    # meeting page that links to it), the site root is the best generic
-    # Referer to send; if 403s persist even with this, it's likely something
-    # more aggressive (TLS/behavioral fingerprinting) that a Referer header
-    # alone won't get past.
-    headers = {
-        "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-            "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-        ),
-        "Accept": "application/pdf,application/octet-stream,*/*",
-        "Accept-Language": "en-US,en;q=0.9",
-        "Referer": "https://www.tredyffrin.org/",
-    }
-    session = requests.Session()
-    # A quick visit to the homepage first, so any session/anti-bot cookie
-    # the server sets on a normal browse gets attached to the actual PDF
-    # request that follows — some WAFs require this handshake before they'll
-    # serve a direct asset request.
-    session.get("https://www.tredyffrin.org/", headers=headers, timeout=30)
-    resp = session.get(url, headers=headers, timeout=30)
-    resp.raise_for_status()
-    dest.write_bytes(resp.content)
+    EARLIER APPROACH (kept here as a comment for the record): a `requests`
+    session with full browser-matching headers, an Accept-Language header,
+    and a homepage visit first to pick up any anti-bot cookie. That still
+    got a 403 on a URL confirmed to load fine in an actual browser — which
+    rules out "missing header" as the cause. The remaining explanation is
+    TLS/behavioral fingerprinting: the WAF is looking at signals below the
+    HTTP header layer (the TLS ClientHello's cipher order/extensions, aka a
+    JA3 fingerprint) that `requests`' underlying urllib3/OpenSSL stack can't
+    match a real browser's, no matter what headers you set on top of it.
+
+    THE FIX: use an actual headless browser (Playwright + Chromium) to fetch
+    the file. Since it's a real browser engine, its TLS fingerprint and
+    request behavior are indistinguishable from a person clicking the link
+    manually — which is exactly the case that already worked for us.
+
+    Requires:
+        pip install playwright
+        playwright install chromium
+    """
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        sys.exit(
+            "download_pdf() needs Playwright to get past tredyffrin.org's "
+            "bot protection. Install it with:\n"
+            "    pip install playwright\n"
+            "    playwright install chromium"
+        )
+
+    user_agent = (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+    )
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        try:
+            context = browser.new_context(user_agent=user_agent)
+            # Visit the homepage first in a real page — same reasoning as
+            # the old session.get() warm-up, but this time it's a real
+            # navigation (cookies, JS challenges if any get resolved
+            # normally) rather than a bare HTTP request pretending to be one.
+            page = context.new_page()
+            page.goto("https://www.tredyffrin.org/", wait_until="domcontentloaded")
+            page.close()
+
+            # Fetch the actual PDF through the same browser context, so it
+            # carries whatever cookies/session state the homepage visit set.
+            response = context.request.get(
+                url, headers={"Referer": "https://www.tredyffrin.org/"}
+            )
+            if not response.ok:
+                sys.exit(
+                    f"Download failed: HTTP {response.status} for {url}\n"
+                    "If you've confirmed this URL loads in your own browser, "
+                    "the site may have changed its bot-protection again — "
+                    "the manual-download workaround (--file) still works as "
+                    "a fallback."
+                )
+            dest.write_bytes(response.body())
+        finally:
+            browser.close()
     return dest
 
 

@@ -51,21 +51,74 @@
     ]
   },
   {
-    "date": "1999-01-01",
-    "minutes_url": "file://C:\\Users\\royda\\Downloads\\06152026-bos-public-meeting-minutes.pdf",
+    "date": "2026-04-20",
+    "minutes_url": "https://www.tredyffrin.org/files/assets/township/v/1/document-central/meeting-minutes/board-of-supervisors-minutes/2026-bos-minutes/4-20-2026-public-meeting-minutes.pdf",
     "tags": [
-      "Parks & Recreation",
+      "Governance",
+      "Public Safety",
       "Finance",
-      "Infrastructure",
-      "Governance"
+      "Infrastructure"
     ],
     "highlights": [
-      "**Chase Road Park debate:** The Board postponed a vote on Change Order #1 for Chase Road Park after multiple residents (Roland Johnson, Carol Clarke, Mike Heaberg) raised concerns about costs, lack of transparency, and the project going over budget. The motion to postpone passed 5-2.",
-      "**Park naming rights:** The Board voted 6-0 to authorize staff to develop an agreement for naming rights at the park located at 355 Chase Road, with discussion about using naming rights as a revenue source for renovations and maintenance. Chair Miller abstained due to his donation to the park fund.",
-      "**Street sweeper purchase approved:** The Board unanimously approved purchase of a new street sweeper from Golden Equipment at a COSTARS cost of $337,594.00 because current repair costs are too expensive.",
-      "**Libby Bernick appointed:** The Board unanimously appointed Libby Bernick to the Library Board of Trustees.",
-      "**Berwyn Village escrow release:** The Board unanimously approved partial escrow release #6 for Berwyn Village in the amount of $64,565.80 (balance remaining $92,289.29), though HOA President Dottie Ives Dewey expressed concern about sufficient remaining funds to complete unfinished work including street paving and stormwater management.",
-      "**Pump station upgrade:** The Board unanimously approved installation of a bypass pump connection at Chesterbrook Pump Station by MGK at a COSTARS cost of $29,800.00."
+      "Charter amendment adopted. Following a public hearing, the board voted 7-0 to adopt Ordinance HR-495 amending the Home Rule Charter's Chapter 4 governance provisions, and scheduled a May 20 public hearing for a related amendment, Ordinance HR-496.",
+      "Mental health and policing. Resident Carol Matthews pushed for Pennsylvania \"red flag\" laws and raised concerns about police response to mental health crises; Jessica Tinneny asked the board to consider adding a mental health specialist to police staff.",
+      "Data centers on the table. The board authorized staff to begin drafting zoning amendments specifically for data centers, after resident Margaret van Naerssen urged including solar and other ecological requirements.",
+      "Capital spending. $54,600 for a sanitary sewer pump at the Chesterbrook Pump Station, plus $29,717 for surface-cleaning equipment and $24,056.40 for accessible door hardware at the library.",
+      "Library milestone. Friends of the Tredyffrin Library presented Library Director Mallory Hoffman with a $44,500 check; Township Engineer Stephen Burgo won a Valley Forge Trout Unlimited award for stormwater and environmental work.",
+      "Traffic concerns raised. Residents flagged speeding on Upper Gulph and King of Prussia Roads, plus traffic and student-housing issues in the Mt. Pleasant and Panhandle neighborhoods."
+    ]
+  },
+  {
+    "date": "2026-03-16",
+    "minutes_url": "https://www.tredyffrin.org/files/assets/township/v/1/document-central/meeting-minutes/board-of-supervisors-minutes/2026-bos-minutes/3-16-2026-public-meeting-minutes.pdf",
+    "tags": [
+      "Public Safety",
+      "Governance",
+      "Parks & Recreation",
+      "Infrastructure"
+    ],
+    "highlights": [
+      "Residents pressed for answers. The board addressed a March 7 incident at Contention Lane and Old State Road; resident Calvin Cizek requested \"a follow up public forum\" after residents raised concerns about communication gaps.",
+      "Water rescue equipment funded. $25,293.55 was approved for new water rescue equipment for the Tredyffrin-Easttown Fire Department.",
+      "Flood buyout grant. The board approved a Hazard Mitigation Grant Program application to acquire a flood-plain home on Yellow Springs Road.",
+      "Mill Road Park bathrooms. $140,000 was approved for a new bathroom facility, funded by grants.",
+      "Charter amendments teed up. The board scheduled an April 20 public hearing for Ordinance HR-495, while postponing a related ordinance, HR-496, for further review.",
+      "Also approved. The 2025 Subdivision & Land Development Activities Report (unanimous), alcohol service at three library fundraising events, and a resolution marking National Libraries Week (7-0)."
+    ]
+  },
+  {
+    "date": "2026-03-02",
+    "minutes_url": "https://www.tredyffrin.org/files/assets/township/v/1/document-central/meeting-minutes/board-of-supervisors-minutes/2026-bos-minutes/03022026-bos-public-meeting-minutes.pdf",
+    "tags": [
+      "Governance",
+      "Public Safety",
+      "Finance"
+    ],
+    "highlights": [
+      "A federal office lease drew a crowd. The township issued a statement on the Department of Homeland Security leasing space at 1000 West Lakes; six residents spoke against it over concerns about ICE activity, and the township solicitor noted Chester County's position that local police won't assist ICE except for public-safety matters.",
+      "Gun range and equipment. $199,255 approved for police gun range improvements, plus $30,735 for three new copiers and $58,455 for storm inlet tops.",
+      "Leaf blowers raised. Residents Scott Laird and Joanne Rose asked the board to consider an ordinance banning gas-powered leaf blowers.",
+      "Chase Road Park idea shelved. A resident-proposed community garden at 355 Chase Road was discussed but dropped for lack of support.",
+      "Other approvals. $9,800 for Friendship Park permitting, $13,121.92 for a sewer root-control program, and a resolution marking April as \"PA 811 Safe Digging Month\" (7-0).",
+      "Recognitions. Township Manager William Martin received a 35-year service award from ICMA; NovoCure and Metropolitan Veterinary Associates were recognized as Gold Level Sponsors of parks programming."
+    ]
+  },
+  {
+    "date": "2026-02-02",
+    "minutes_url": "https://www.tredyffrin.org/files/assets/township/v/2/document-central/meeting-minutes/board-of-supervisors-minutes/2026-bos-minutes/2-2-2026-public-meeting-minutes.pdf",
+    "tags": [
+      "Public Safety",
+      "Finance",
+      "Parks & Recreation",
+      "Infrastructure"
+    ],
+    "highlights": [
+      "Police fleet expansion. The board approved $212,473 for four new police vehicles (one Tahoe, three Ford Interceptors) plus $77,527 in upfit costs, a separate $34,071.02 utility vehicle, and a $13,500 police drone - all unanimous.",
+      "Camera and tech upgrades. $42,379 for camera system upgrades at the Police Department, Township Building, and Paoli Library; $28,000 for new sewer/stormwater monitoring software; and up to $50,000 for phase 2 of records digitization.",
+      "Fire station heating swap. $133,000 was approved to convert the Fire Company substation on Valley Grove Road from oil to gas heat.",
+      "Environmental grants. The board backed a $100,000 Trout Unlimited grant application for Valley Creek restoration, and reallocated Bike Park Grant funds toward the Chase Road Park project.",
+      "Wilson Farm Park safety fix. A $12,745 change order was approved to bring the park's tot lot gates up to safety code.",
+      "Residents pushed back. Roland Johnson and Richard Kunin questioned the pace of capital spending; several residents raised stormwater concerns tied to a proposed development at 317 Greene Street; and Johnson argued Chase Road Park should prioritize children's equipment over pickleball courts."
     ]
   }
 ]

@@ -5,9 +5,9 @@ generated from the township's official public meeting minutes — so residents
 don't have to read a dense PDF or watch a multi-hour video to know what got
 decided.
 
-**Status:** working prototype, 3 real meetings summarized (May–July 2026),
-validated with a positive Nextdoor/Patch interest poll. Not currently hosted
-publicly — running locally for now.
+**Status:** live prototype, 7 real meetings summarized (February–July 2026),
+validated with a positive Nextdoor/Patch interest poll. Published at
+https://roydanlobo.github.io/tredyffrin-digest/.
 
 ## What's here
 
@@ -34,14 +34,28 @@ publicly — running locally for now.
 python3 -m venv venv
 source venv/bin/activate        # Windows: venv\Scripts\activate
 pip install -r requirements.txt
+playwright install chromium     # one-time browser download, see note below
 cp .env.example .env            # then fill in your real Anthropic API key
 ```
 
-The script reads `ANTHROPIC_API_KEY` from the environment. Either export it
-in your shell, or use a tool like `python-dotenv` to load `.env`
-automatically (not wired in yet — currently you'd `export
-ANTHROPIC_API_KEY=sk-...` before running the script, or source `.env`
-manually).
+The script reads `ANTHROPIC_API_KEY` (and optionally `BUTTONDOWN_API_KEY`)
+from the environment. Either export it in your shell, or use a tool like
+`python-dotenv` to load `.env` automatically (not wired in yet — currently
+you'd `export ANTHROPIC_API_KEY=sk-...` before running the script, or
+source `.env` manually). Environment variables set with `$env:VAR = "..."`
+in PowerShell only last for that terminal session — use the System
+Environment Variables GUI if you want them to persist.
+
+### Why Playwright?
+
+tredyffrin.org blocks plain HTTP downloads (Python's `requests`, even with
+full browser-matching headers) but allows real browsers through — this
+looks like TLS/behavioral fingerprinting rather than a simple header check,
+since a confirmed-real URL that loads fine by hand still 403'd from
+`requests`. `download_pdf()` now drives a real headless Chromium browser via
+Playwright instead, which gets past it because it *is* a real browser as
+far as the site can tell. If tredyffrin.org changes its protection again,
+`--file` (pointing at a manually-downloaded copy) is the fallback.
 
 ## Usage — after a new meeting posts minutes
 
@@ -62,6 +76,17 @@ manually).
 
 To just rebuild the HTML/RSS from existing data without adding a new
 meeting: `python generate_digest.py --render-only`.
+
+### Note on the February–April 2026 entries
+
+Those four meetings were backfilled directly (not run through this script
+locally) — the assistant found the minutes URLs and extracted/summarized
+their content via its own web-fetch tooling, then added the entries to
+`digest_data.json` and `index.html` by hand, in the same format the script
+produces. That's a reasonable one-time way to seed history, but it means
+those four entries haven't been through the exact same pipeline as the
+May–July ones. Worth a spot-check against the source PDFs (linked on each
+entry) before treating them as fully verified, same as any other digest.
 
 ## How this idea was validated
 
@@ -101,8 +126,13 @@ meeting: `python generate_digest.py --render-only`.
 1. Merge `generate_digest.py`'s output template with the styled `index.html`
    so a script run updates the real page directly, not a separate generic
    file.
-2. Automate discovery of new Tredyffrin meetings (currently: manually check
-   tredyffrin.org and pass the PDF URL in).
+2. Automate discovery of new Tredyffrin meetings. The meeting-index page
+   (tredyffrin.org/Boards-Commissions/Board-of-Supervisors/Board-of-Supervisors-Meetings)
+   lists every meeting with a predictable per-meeting page URL
+   (`/Minutes-and-agenda/{year}-Board-of-Supervisors/{MMDDYYYY}-BOS-Meeting`),
+   so a script could check it periodically and only pass in meetings whose
+   date isn't already in `digest_data.json` — the current version still
+   requires the URL to be found and passed in by hand.
 3. Cross-meeting "storyline" detection (e.g. the Chase Road Park thread
    tracked across three meetings in the initial prototype) is currently done
    by a human reading multiple meetings side by side — worth treating as its
