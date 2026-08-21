@@ -150,7 +150,7 @@ Write your response as JSON with this exact shape, and nothing else:
 {{
   "tags": ["2-4 short topic tags, e.g. 'Parks & Recreation', 'Infrastructure', 'Public Safety', 'Finance', 'Governance'"],
   "highlights": [
-    "4-7 bullet points, each starting with a short bold-style lead phrase then a plain-English sentence. Include specific numbers (dollar amounts, vote counts) exactly as they appear in the source. Do not invent or round any figures. If residents raised concerns or pushed back on something, say so plainly and name who/what if given.",
+    "4-7 bullet points, each starting with a short lead phrase (2-5 words) ending in a period, then a plain-English sentence. Write the lead phrase as PLAIN TEXT WITH NO MARKDOWN SYNTAX — no asterisks, no **bold**, no colons after it. Example of the correct format: 'Charter change adopted. The board voted 6-0 to adopt Ordinance HR-496.' The page's own styling bolds the lead phrase automatically; adding ** yourself will show up as literal asterisks. Include specific numbers (dollar amounts, vote counts) exactly as they appear in the source. Do not invent or round any figures. If residents raised concerns or pushed back on something, say so plainly and name who/what if given.",
     "..."
   ]
 }}
