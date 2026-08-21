@@ -29,6 +29,12 @@ WHAT IT DOES
 6. Re-renders feed.xml (a standard RSS 2.0 feed) from the same entries, so
    residents can subscribe with any feed reader, or so other local sites
    (Patch, aggregators) can pick it up without a bespoke integration.
+7. For a genuinely new meeting (not a re-run correcting an existing one),
+   creates a DRAFT email in Buttondown via their API — it does NOT send it.
+   You still review the draft in your Buttondown dashboard and hit Send
+   yourself, same reasoning as checking the digest against the source PDF
+   before publishing it anywhere. Skipped entirely if BUTTONDOWN_API_KEY
+   isn't set.
 
 WHAT IT DOESN'T DO YET (left for a real build-out)
 ---------------------------------------------------
@@ -48,6 +54,10 @@ REQUIREMENTS
     pip install requests pdfplumber anthropic
 
     export ANTHROPIC_API_KEY=sk-...
+
+    # Optional — only needed if you want draft emails created automatically.
+    # Get this from Buttondown Settings > Programming > API Key.
+    export BUTTONDOWN_API_KEY=...
 
 NOTE ON THIS SANDBOX
 ---------------------
@@ -74,6 +84,7 @@ USAGE
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -204,12 +215,13 @@ article.meeting{{border:1px solid #e3ddd2;border-radius:10px;padding:1.4rem 1.6r
 <h1>{SOURCE_LABEL} — Meeting Digest</h1>
 <p class="ui">Auto-generated from official minutes. Not affiliated with the township.</p>
 
-<!-- Same Buttondown embed pattern as the hand-built prototype (newsletter:
-     SummarizeMyDigest). Keep this as a plain HTML form post (not JS fetch)
-     per Buttondown's docs, so CAPTCHA/validation-error flows still work. -->
+<!-- Same Buttondown embed pattern as the hand-built prototype — replace
+     YOUR-USERNAME once a Buttondown (or other) account exists. Keep this as
+     a plain HTML form post (not JS fetch) per Buttondown's docs, so
+     CAPTCHA/validation-error flows still work for subscribers. -->
 <div class="subscribe ui">
   <strong>Get the next digest by email.</strong>
-  <form action="https://buttondown.com/api/emails/embed-subscribe/SummarizeMyDigest" method="post" class="embeddable-buttondown-form">
+  <form action="https://buttondown.com/api/emails/embed-subscribe/YOUR-USERNAME" method="post" class="embeddable-buttondown-form">
     <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address">
     <input type="hidden" value="1" name="embed">
     <input type="submit" value="Subscribe">
@@ -277,6 +289,56 @@ def render_rss(entries: list) -> None:
     print(f"Wrote {OUTPUT_RSS} with {len(entries)} item(s).")
 
 
+def create_buttondown_draft(entry: dict) -> None:
+    """Create a DRAFT email in Buttondown for this digest — not sent yet.
+
+    Deliberately creates a draft rather than sending immediately: Buttondown's
+    own docs note that creating an email via the API "will instantly trigger
+    sending actual emails" unless you explicitly set status to "draft". Given
+    these digests are AI-generated summaries of real government minutes, a
+    human should read the draft in the Buttondown dashboard and hit Send
+    themselves — same reasoning as reviewing the digest against the source
+    PDF before publishing it anywhere. Once you fully trust the pipeline, you
+    could change status below to "about_to_send" to skip that step, but
+    that's a deliberate choice to make later, not the default here.
+
+    Requires a BUTTONDOWN_API_KEY environment variable (from Buttondown's
+    Settings > Programming). Silently skipped if that's not set, so the rest
+    of the pipeline still works for anyone who hasn't wired this up yet.
+    """
+    api_key = os.environ.get("BUTTONDOWN_API_KEY")
+    if not api_key:
+        print("BUTTONDOWN_API_KEY not set — skipping draft creation. "
+              "Set it (Buttondown Settings > Programming) to auto-draft emails.")
+        return
+
+    import requests
+
+    subject = f"Board of Supervisors — {entry['date']}"
+    body_lines = [f"- {h}" for h in entry["highlights"]]
+    body = (
+        f"**{subject}**\n\n"
+        + "\n".join(body_lines)
+        + f"\n\n[Official minutes (PDF)]({entry['minutes_url']})\n\n"
+        + f"[Read this and past digests]({SITE_URL})\n\n"
+        + "---\n*Unofficial digest, not affiliated with the township. "
+        + "Generated from public meeting minutes — verify anything important "
+        + "against the source PDF above.*"
+    )
+
+    resp = requests.post(
+        "https://api.buttondown.com/v1/emails",
+        headers={"Authorization": f"Token {api_key}"},
+        json={"subject": subject, "body": body, "status": "draft"},
+        timeout=30,
+    )
+    if resp.status_code >= 300:
+        print(f"Buttondown draft creation failed ({resp.status_code}): {resp.text}")
+        return
+    print(f"Created a DRAFT email in Buttondown for {entry['date']} — "
+          f"review and send it manually from your Buttondown dashboard.")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--url", help="URL of a minutes PDF on tredyffrin.org")
@@ -321,11 +383,22 @@ def main():
         "highlights": digest["highlights"],
     }
 
+    is_new_meeting = args.date not in [e["date"] for e in entries]
+
     entries = [e for e in entries if e["date"] != args.date]  # replace if re-run
     entries.append(entry)
     save_data(entries)
     render_html(entries)
     render_rss(entries)
+
+    # Only draft an email for a genuinely new meeting — re-running this
+    # command to fix a typo in an existing entry shouldn't create a second
+    # draft for the same date.
+    if is_new_meeting:
+        create_buttondown_draft(entry)
+    else:
+        print(f"Updated existing entry for {args.date} — not creating a new "
+              f"Buttondown draft (one may already exist from the first run).")
 
 
 if __name__ == "__main__":
