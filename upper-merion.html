@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upper Merion Township Meeting Digest (Prototype)</title>
+<link rel="alternate" type="application/rss+xml" title="Upper Merion Township Meeting Digest" href="feed-upper-merion.xml">
+<style>
+  :root{
+    --navy:#1c2b3a;
+    --navy-2:#26394d;
+    --accent:#2f6f4e;
+    --accent-2:#b5651d;
+    --paper:#faf8f4;
+    --card:#ffffff;
+    --line:#e3ddd2;
+    --text:#232323;
+    --muted:#5b5b5b;
+    --tag-bg:#eef2ee;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Georgia","Iowan Old Style",serif;
+    background:var(--paper);
+    color:var(--text);
+    line-height:1.55;
+  }
+  .ui{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;}
+  header{
+    background:linear-gradient(135deg,var(--navy),var(--navy-2));
+    color:#f4f1ea;
+    padding:2.6rem 1.5rem 2.2rem;
+  }
+  header .inner{max-width:780px;margin:0 auto;}
+  .township-nav{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:.82rem;
+    margin-bottom:1rem;
+  }
+  .township-nav label{color:#c9d6cd;margin-right:.5rem;}
+  .township-nav select{
+    background:rgba(255,255,255,0.1);
+    color:#f4f1ea;
+    border:1px solid rgba(255,255,255,0.32);
+    border-radius:6px;
+    padding:.3rem .6rem;
+    font-size:.82rem;
+    font-family:inherit;
+  }
+  .township-nav select option{color:#232323;}
+  header h1{
+    font-family:"Georgia",serif;
+    font-size:1.9rem;
+    margin:0 0 .4rem;
+    letter-spacing:.2px;
+  }
+  header p.tag{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:.82rem;
+    text-transform:uppercase;
+    letter-spacing:1.4px;
+    color:#c9d6cd;
+    margin:0 0 1rem;
+  }
+  header p.lede{
+    font-size:1.02rem;
+    color:#e8e3d8;
+    max-width:640px;
+    margin:0 0 1.6rem;
+  }
+  .subscribe{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.18);
+    border-radius:10px;
+    padding:1.1rem 1.3rem;
+    max-width:640px;
+  }
+  .subscribe p.st{
+    margin:0 0 .7rem;
+    font-size:.92rem;
+    color:#f4f1ea;
+  }
+  .subscribe form{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.6rem;
+  }
+  .subscribe input[type=email]{
+    flex:1 1 220px;
+    padding:.6rem .8rem;
+    border-radius:6px;
+    border:1px solid rgba(255,255,255,0.3);
+    background:#f4f1ea;
+    font-size:.9rem;
+  }
+  .subscribe input[type=submit]{
+    padding:.6rem 1.1rem;
+    border-radius:6px;
+    border:none;
+    background:var(--accent);
+    color:#fff;
+    font-weight:600;
+    font-size:.9rem;
+    cursor:pointer;
+  }
+  .subscribe input[type=submit]:hover{background:#265c40;}
+  .subscribe .fine{
+    margin:.6rem 0 0;
+    font-size:.74rem;
+    color:#c9d6cd;
+  }
+  .subscribe .fine a{color:#e8e3d8;}
+  main{max-width:780px;margin:0 auto;padding:2.2rem 1.5rem 4rem;}
+
+  .disclaimer{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    background:#fbf3e4;
+    border:1px solid #e8d9b8;
+    color:#5c4a1f;
+    font-size:.86rem;
+    padding:.85rem 1rem;
+    border-radius:8px;
+    margin-bottom:2.4rem;
+  }
+  .disclaimer strong{color:#3f3013;}
+
+  h2.section-heading{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:.8rem;
+    text-transform:uppercase;
+    letter-spacing:1.4px;
+    color:var(--muted);
+    border-bottom:1px solid var(--line);
+    padding-bottom:.5rem;
+    margin:0 0 1.4rem;
+  }
+
+  article.meeting{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:1.5rem 1.6rem 1.7rem;
+    margin-bottom:1.6rem;
+  }
+  article.meeting .meta{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:.5rem;
+    margin-bottom:.7rem;
+  }
+  article.meeting .date{
+    font-size:1.15rem;
+    font-weight:700;
+    color:var(--navy);
+    font-family:Georgia,serif;
+  }
+  article.meeting .links{
+    font-size:.8rem;
+  }
+  article.meeting .links a{
+    color:var(--accent);
+    text-decoration:none;
+    margin-left:.8rem;
+    border-bottom:1px solid transparent;
+  }
+  article.meeting .links a:hover{border-bottom-color:var(--accent);}
+
+  .tags{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    display:flex;flex-wrap:wrap;gap:.4rem;
+    margin-bottom:1rem;
+  }
+  .tags span{
+    background:var(--tag-bg);
+    color:var(--accent);
+    border-radius:20px;
+    padding:.22rem .7rem;
+    font-size:.72rem;
+    font-weight:600;
+    letter-spacing:.3px;
+  }
+
+  ul.highlights{margin:0;padding-left:1.15rem;}
+  ul.highlights li{margin-bottom:.55rem;}
+  ul.highlights li:last-child{margin-bottom:0;}
+  ul.highlights .num{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    color:var(--accent-2);
+    font-weight:700;
+  }
+
+  .empty-state{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    background:var(--card);
+    border:1px dashed var(--line);
+    border-radius:10px;
+    padding:2rem 1.6rem;
+    text-align:center;
+    color:var(--muted);
+    margin-bottom:1.6rem;
+  }
+  .empty-state strong{display:block;color:var(--text);font-size:1.05rem;margin-bottom:.4rem;}
+
+  footer{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    max-width:780px;
+    margin:0 auto;
+    padding:0 1.5rem 3rem;
+    color:var(--muted);
+    font-size:.8rem;
+    border-top:1px solid var(--line);
+    padding-top:1.5rem;
+  }
+  footer a{color:var(--accent);}
+
+  @media (max-width:520px){
+    article.meeting .meta{flex-direction:column;align-items:flex-start;}
+    article.meeting .links a{margin-left:0;margin-right:.9rem;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <div class="township-nav ui">
+      <label for="township-select">Viewing digests for:</label>
+      <select id="township-select" onchange="if(this.value) window.location.href=this.value;">
+        <option value="index.html">Tredyffrin Township</option>
+        <option value="upper-merion.html" selected>Upper Merion Township</option>
+      </select>
+    </div>
+    <p class="tag ui">Prototype &middot; Upper Merion Township, Montgomery County, PA</p>
+    <h1>What happened at your township meeting</h1>
+    <p class="lede">Plain-language digests of Upper Merion Board of Supervisors meetings, generated from the township&rsquo;s official public minutes &mdash; so you don&rsquo;t have to read a dense PDF or watch a long video to know what your local government decided.</p>
+
+    <div class="subscribe">
+      <p class="st">Get the next digest by email, the day it&rsquo;s posted.</p>
+      <!--
+        Buttondown embeddable subscribe form (newsletter: SummarizeMyDigest,
+        shared with the Tredyffrin page). Per Buttondown's docs, don't convert
+        this to a JS fetch() submission — a plain HTML form post is required
+        so subscribers can complete CAPTCHA or see validation errors if
+        needed.
+      -->
+      <form action="https://buttondown.com/api/emails/embed-subscribe/SummarizeMyDigest" method="post" class="embeddable-buttondown-form">
+        <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address">
+        <input type="hidden" value="1" name="embed">
+        <!-- Tags this subscriber "upper-merion" so the shared Buttondown
+             newsletter can send Upper Merion digests only to people who
+             subscribed here, not to Tredyffrin-only subscribers. -->
+        <input type="hidden" name="tag" value="upper-merion">
+        <input type="submit" value="Subscribe">
+      </form>
+      <p class="fine">No spam &mdash; sent only when a new digest is posted. Unsubscribe anytime. Prefer a feed reader? <a href="feed-upper-merion.xml">Subscribe via RSS</a> instead.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="disclaimer">
+    <strong>This is an unofficial, independently-built prototype</strong> &mdash; not produced by or affiliated with Upper Merion Township. Every digest below is generated from the township&rsquo;s official public meeting minutes (linked on each entry) using AI. It is meant as a fast starting point, not a replacement for the official record &mdash; always verify anything important against the source PDF or video before acting on it or repeating it as fact.
+  </div>
+
+  <h2 class="section-heading ui">Recent meetings</h2>
+
+  <div class="empty-state">
+    <strong>No digests yet for Upper Merion.</strong>
+    This page is set up and ready &mdash; the first digest appears here once a meeting is processed. Subscribe above to get it the moment it's posted.
+  </div>
+
+  <h2 class="section-heading ui" style="margin-top:2.4rem;">How this would work as a real product</h2>
+  <p>Upper Merion runs on a different township website platform than Tredyffrin (CivicPlus&rsquo;s AgendaCenter rather than Tredyffrin&rsquo;s own site), so it needed its own way of finding and downloading minutes &mdash; that groundwork is done. What's left is the same as it was for Tredyffrin at this stage: process a handful of real meetings to prove it out, then keep it current as new meetings post.</p>
+
+</main>
+
+<footer class="ui">
+  Built as a prototype exploring whether Chester County and Montgomery County residents would benefit from plain-language digests of local government meetings. Not affiliated with Upper Merion Township. Source minutes: <a href="https://www.umtownship.org/agendacenter" target="_blank" rel="noopener">umtownship.org</a>. Also available as an <a href="feed-upper-merion.xml">RSS feed</a>. Also covering <a href="index.html">Tredyffrin Township</a> (Chester County).
+</footer>
+
+</body>
+</html>

@@ -3,4 +3,5 @@ __pycache__/
 *.pyc
 .env
 tredyffrin-digest-generated.html
+upper-merion-digest-generated.html
 _downloaded_minutes.pdf

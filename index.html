@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tredyffrin Township Meeting Digest (Prototype)</title>
-<link rel="alternate" type="application/rss+xml" title="Tredyffrin Township Meeting Digest" href="feed.xml">
+<link rel="alternate" type="application/rss+xml" title="Tredyffrin Township Meeting Digest" href="feed-tredyffrin.xml">
 <style>
   :root{
     --navy:#1c2b3a;
@@ -33,6 +33,22 @@
     padding:2.6rem 1.5rem 2.2rem;
   }
   header .inner{max-width:780px;margin:0 auto;}
+  .township-nav{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:.82rem;
+    margin-bottom:1rem;
+  }
+  .township-nav label{color:#c9d6cd;margin-right:.5rem;}
+  .township-nav select{
+    background:rgba(255,255,255,0.1);
+    color:#f4f1ea;
+    border:1px solid rgba(255,255,255,0.32);
+    border-radius:6px;
+    padding:.3rem .6rem;
+    font-size:.82rem;
+    font-family:inherit;
+  }
+  .township-nav select option{color:#232323;}
   header h1{
     font-family:"Georgia",serif;
     font-size:1.9rem;
@@ -246,6 +262,13 @@
 
 <header>
   <div class="inner">
+    <div class="township-nav ui">
+      <label for="township-select">Viewing digests for:</label>
+      <select id="township-select" onchange="if(this.value) window.location.href=this.value;">
+        <option value="index.html" selected>Tredyffrin Township</option>
+        <option value="upper-merion.html">Upper Merion Township</option>
+      </select>
+    </div>
     <p class="tag ui">Prototype &middot; Tredyffrin Township, Chester County, PA</p>
     <h1>What happened at your township meeting</h1>
     <p class="lede">Plain-language digests of Tredyffrin Board of Supervisors meetings, generated from the township&rsquo;s official public minutes &mdash; so you don&rsquo;t have to read a four-page PDF or watch a two-hour video to know what your local government decided.</p>
@@ -261,9 +284,13 @@
       <form action="https://buttondown.com/api/emails/embed-subscribe/SummarizeMyDigest" method="post" class="embeddable-buttondown-form">
         <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address">
         <input type="hidden" value="1" name="embed">
+        <!-- Tags this subscriber "tredyffrin" so a shared Buttondown newsletter
+             can send Tredyffrin digests only to people who subscribed here,
+             not to Upper Merion-only subscribers. See README for setup. -->
+        <input type="hidden" name="tag" value="tredyffrin">
         <input type="submit" value="Subscribe">
       </form>
-      <p class="fine">No spam &mdash; sent only when a new digest is posted, roughly twice a month. Unsubscribe anytime. Prefer a feed reader? <a href="feed.xml">Subscribe via RSS</a> instead.</p>
+      <p class="fine">No spam &mdash; sent only when a new digest is posted, roughly twice a month. Unsubscribe anytime. Prefer a feed reader? <a href="feed-tredyffrin.xml">Subscribe via RSS</a> instead.</p>
     </div>
   </div>
 </header>
@@ -460,7 +487,7 @@
 </main>
 
 <footer class="ui">
-  Built as a prototype exploring whether Chester County residents would benefit from plain-language digests of local government meetings. Not affiliated with Tredyffrin Township. Source minutes: <a href="https://www.tredyffrin.org/Minutes-and-agenda" target="_blank" rel="noopener">tredyffrin.org</a>. Also available as an <a href="feed.xml">RSS feed</a>.
+  Built as a prototype exploring whether Chester County residents would benefit from plain-language digests of local government meetings. Not affiliated with Tredyffrin Township. Source minutes: <a href="https://www.tredyffrin.org/Minutes-and-agenda" target="_blank" rel="noopener">tredyffrin.org</a>. Also available as an <a href="feed-tredyffrin.xml">RSS feed</a>. Also covering <a href="upper-merion.html">Upper Merion Township</a> (Montgomery County).
 </footer>
 
 </body>
