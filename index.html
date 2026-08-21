@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tredyffrin Township Meeting Digest (Prototype)</title>
+<link rel="alternate" type="application/rss+xml" title="Tredyffrin Township Meeting Digest" href="feed.xml">
+<style>
+  :root{
+    --navy:#1c2b3a;
+    --navy-2:#26394d;
+    --accent:#2f6f4e;
+    --accent-2:#b5651d;
+    --paper:#faf8f4;
+    --card:#ffffff;
+    --line:#e3ddd2;
+    --text:#232323;
+    --muted:#5b5b5b;
+    --tag-bg:#eef2ee;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Georgia","Iowan Old Style",serif;
+    background:var(--paper);
+    color:var(--text);
+    line-height:1.55;
+  }
+  .ui{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;}
+  header{
+    background:linear-gradient(135deg,var(--navy),var(--navy-2));
+    color:#f4f1ea;
+    padding:2.6rem 1.5rem 2.2rem;
+  }
+  header .inner{max-width:780px;margin:0 auto;}
+  header h1{
+    font-family:"Georgia",serif;
+    font-size:1.9rem;
+    margin:0 0 .4rem;
+    letter-spacing:.2px;
+  }
+  header p.tag{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:.82rem;
+    text-transform:uppercase;
+    letter-spacing:1.4px;
+    color:#c9d6cd;
+    margin:0 0 1rem;
+  }
+  header p.lede{
+    font-size:1.02rem;
+    color:#e8e3d8;
+    max-width:640px;
+    margin:0 0 1.6rem;
+  }
+  .subscribe{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.18);
+    border-radius:10px;
+    padding:1.1rem 1.3rem;
+    max-width:640px;
+  }
+  .subscribe p.st{
+    margin:0 0 .7rem;
+    font-size:.92rem;
+    color:#f4f1ea;
+  }
+  .subscribe form{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.6rem;
+  }
+  .subscribe input[type=email]{
+    flex:1 1 220px;
+    padding:.6rem .8rem;
+    border-radius:6px;
+    border:1px solid rgba(255,255,255,0.3);
+    background:#f4f1ea;
+    font-size:.9rem;
+  }
+  .subscribe input[type=submit]{
+    padding:.6rem 1.1rem;
+    border-radius:6px;
+    border:none;
+    background:var(--accent);
+    color:#fff;
+    font-weight:600;
+    font-size:.9rem;
+    cursor:pointer;
+  }
+  .subscribe input[type=submit]:hover{background:#265c40;}
+  .subscribe .fine{
+    margin:.6rem 0 0;
+    font-size:.74rem;
+    color:#c9d6cd;
+  }
+  .subscribe .fine a{color:#e8e3d8;}
+  main{max-width:780px;margin:0 auto;padding:2.2rem 1.5rem 4rem;}
+
+  .disclaimer{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    background:#fbf3e4;
+    border:1px solid #e8d9b8;
+    color:#5c4a1f;
+    font-size:.86rem;
+    padding:.85rem 1rem;
+    border-radius:8px;
+    margin-bottom:2.4rem;
+  }
+  .disclaimer strong{color:#3f3013;}
+
+  section.storyline{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:5px solid var(--accent-2);
+    border-radius:10px;
+    padding:1.4rem 1.5rem;
+    margin-bottom:2.6rem;
+  }
+  section.storyline h2{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:.78rem;
+    text-transform:uppercase;
+    letter-spacing:1.3px;
+    color:var(--accent-2);
+    margin:0 0 .7rem;
+  }
+  section.storyline h3{margin:0 0 .6rem;font-size:1.2rem;}
+  .arc{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    display:flex;
+    flex-wrap:wrap;
+    gap:.5rem;
+    margin:.9rem 0 0;
+    font-size:.82rem;
+  }
+  .arc .step{
+    background:var(--tag-bg);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:.35rem .8rem;
+    color:var(--navy);
+  }
+  .arc .arrow{color:var(--muted);align-self:center;}
+
+  h2.section-heading{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:.8rem;
+    text-transform:uppercase;
+    letter-spacing:1.4px;
+    color:var(--muted);
+    border-bottom:1px solid var(--line);
+    padding-bottom:.5rem;
+    margin:0 0 1.4rem;
+  }
+
+  article.meeting{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:1.5rem 1.6rem 1.7rem;
+    margin-bottom:1.6rem;
+  }
+  article.meeting .meta{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:.5rem;
+    margin-bottom:.7rem;
+  }
+  article.meeting .date{
+    font-size:1.15rem;
+    font-weight:700;
+    color:var(--navy);
+    font-family:Georgia,serif;
+  }
+  article.meeting .links{
+    font-size:.8rem;
+  }
+  article.meeting .links a{
+    color:var(--accent);
+    text-decoration:none;
+    margin-left:.8rem;
+    border-bottom:1px solid transparent;
+  }
+  article.meeting .links a:hover{border-bottom-color:var(--accent);}
+
+  .tags{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    display:flex;flex-wrap:wrap;gap:.4rem;
+    margin-bottom:1rem;
+  }
+  .tags span{
+    background:var(--tag-bg);
+    color:var(--accent);
+    border-radius:20px;
+    padding:.22rem .7rem;
+    font-size:.72rem;
+    font-weight:600;
+    letter-spacing:.3px;
+  }
+
+  ul.highlights{margin:0;padding-left:1.15rem;}
+  ul.highlights li{margin-bottom:.55rem;}
+  ul.highlights li:last-child{margin-bottom:0;}
+  ul.highlights .num{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    color:var(--accent-2);
+    font-weight:700;
+  }
+
+  .watchflag{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    display:inline-block;
+    margin-top:1rem;
+    font-size:.78rem;
+    background:#fdf0e6;
+    color:#8a4c14;
+    border:1px solid #f0d3b3;
+    border-radius:6px;
+    padding:.4rem .7rem;
+  }
+
+  footer{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    max-width:780px;
+    margin:0 auto;
+    padding:0 1.5rem 3rem;
+    color:var(--muted);
+    font-size:.8rem;
+    border-top:1px solid var(--line);
+    padding-top:1.5rem;
+  }
+  footer a{color:var(--accent);}
+
+  @media (max-width:520px){
+    article.meeting .meta{flex-direction:column;align-items:flex-start;}
+    article.meeting .links a{margin-left:0;margin-right:.9rem;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <p class="tag ui">Prototype &middot; Tredyffrin Township, Chester County, PA</p>
+    <h1>What happened at your township meeting</h1>
+    <p class="lede">Plain-language digests of Tredyffrin Board of Supervisors meetings, generated from the township&rsquo;s official public minutes &mdash; so you don&rsquo;t have to read a four-page PDF or watch a two-hour video to know what your local government decided.</p>
+
+    <div class="subscribe">
+      <p class="st">Get the next digest by email, the day it&rsquo;s posted.</p>
+      <!--
+        SETUP NOTE (remove this comment once configured):
+        This form uses Buttondown's free embeddable subscribe form, which needs
+        no backend of its own. To activate it:
+          1. Create a free account at https://buttondown.com
+          2. Replace "YOUR-USERNAME" in the form's action URL below with your
+             actual Buttondown username.
+        That's it — submissions go straight to your Buttondown subscriber list.
+        Per Buttondown's docs, don't convert this to a JS fetch() submission —
+        a plain HTML form post is required so subscribers can complete CAPTCHA
+        or see validation errors if needed.
+        (Swap in Mailchimp/Resend/etc. instead if you'd rather use those —
+        this is just the lowest-friction option for a static page like this one.)
+      -->
+      <form action="https://buttondown.com/api/emails/embed-subscribe/YOUR-USERNAME" method="post" class="embeddable-buttondown-form">
+        <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address">
+        <input type="hidden" value="1" name="embed">
+        <input type="submit" value="Subscribe">
+      </form>
+      <p class="fine">No spam &mdash; sent only when a new digest is posted, roughly twice a month. Unsubscribe anytime. Prefer a feed reader? <a href="feed.xml">Subscribe via RSS</a> instead.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="disclaimer">
+    <strong>This is an unofficial, independently-built prototype</strong> &mdash; not produced by or affiliated with Tredyffrin Township. Every digest below is generated from the township&rsquo;s official public meeting minutes (linked on each entry) using AI. It is meant as a fast starting point, not a replacement for the official record &mdash; always verify anything important against the source PDF or video before acting on it or repeating it as fact.
+  </div>
+
+  <section class="storyline">
+    <h2 class="ui">Storyline to watch</h2>
+    <h3>Chase Road Park: costs climbing, questions mounting</h3>
+    <p>This is exactly the kind of thread that&rsquo;s easy to lose track of when each meeting&rsquo;s minutes are read in isolation. Followed across three meetings in a row, a clearer pattern emerges:</p>
+    <div class="arc ui">
+      <span class="step">May 20 &mdash; $1.77M contract awarded</span>
+      <span class="arrow">&rarr;</span>
+      <span class="step">Jun 15 &mdash; Residents push back on cost &amp; transparency; board postpones Change Order #1 (5&ndash;2)</span>
+      <span class="arrow">&rarr;</span>
+      <span class="step">Jul 20 &mdash; Residents flag accelerated timeline &amp; rising costs again</span>
+    </div>
+  </section>
+
+  <h2 class="section-heading ui">Recent meetings</h2>
+
+  <article class="meeting">
+    <div class="meta">
+      <div class="date">July 20, 2026</div>
+      <div class="links ui">
+        <a href="https://www.tredyffrin.org/files/assets/township/v/1/document-central/meeting-minutes/board-of-supervisors-minutes/2026-bos-minutes/07202026-bos-public-meeting-minutes.pdf" target="_blank" rel="noopener">Official minutes (PDF)</a>
+        <a href="https://www.tredyffrin.org/Departments/Communications/Tredyffrin-Township-TV" target="_blank" rel="noopener">Video archive</a>
+      </div>
+    </div>
+    <div class="tags">
+      <span>Parks &amp; Recreation</span>
+      <span>Infrastructure</span>
+      <span>Public Safety</span>
+      <span>Finance</span>
+    </div>
+    <ul class="highlights">
+      <li><span class="num">Property acquired.</span> The board voted 6&ndash;0 to adopt Ordinance HR-497, approving the township&rsquo;s acquisition of property at 599 Park Ridge Drive.</li>
+      <li><span class="num">Split vote on a park event.</span> A proposal for an &ldquo;America 250 Reenactment Camp&rdquo; in Teegarden Park (Sept 19&ndash;20, $3,000) passed 4&ndash;2. The two dissenting supervisors cited Park &amp; Recreation Board concerns about overnight camping, safety, and lease complications.</li>
+      <li><span class="num">Road &amp; sewer work approved.</span> $187,745 for a stormwater relining project on Upper Weadley Road, plus a $21,069.68 emergency sewer repair on Pugh Road.</li>
+      <li><span class="num">A retirement, recognized.</span> Officer Joseph Butler was honored for 24+ years of police service. Volunteer Stanford Nishikawa was also recognized.</li>
+      <li><span class="num">Residents pushed back again.</span> Concerns were raised about Wilson Farm Park renovation costs, and specifically about the Chase Road Park project&rsquo;s accelerated timeline and rising expenses &mdash; see the storyline above.</li>
+    </ul>
+  </article>
+
+  <article class="meeting">
+    <div class="meta">
+      <div class="date">June 15, 2026</div>
+      <div class="links ui">
+        <a href="https://www.tredyffrin.org/files/assets/township/v/1/document-central/meeting-minutes/board-of-supervisors-minutes/2026-bos-minutes/06152026-bos-public-meeting-minutes.pdf" target="_blank" rel="noopener">Official minutes (PDF)</a>
+        <a href="https://www.tredyffrin.org/Departments/Communications/Tredyffrin-Township-TV" target="_blank" rel="noopener">Video archive</a>
+      </div>
+    </div>
+    <div class="tags">
+      <span>Parks &amp; Recreation</span>
+      <span>Infrastructure</span>
+      <span>Governance</span>
+    </div>
+    <ul class="highlights">
+      <li><span class="num">Chase Road Park hits a snag.</span> Resident Carol Clarke asked the board to &ldquo;pause the project and reconsider the costs and scope.&rdquo; After discussion, the board voted 5&ndash;2 to postpone the Change Order #1 decision to the July 20 meeting.</li>
+      <li><span class="num">Big equipment purchase.</span> A new street sweeper was approved for $337,594.</li>
+      <li><span class="num">Utility work.</span> A pump station connection installation was approved for $29,800, and $64,565.80 in escrow was released for the Berwyn Village development.</li>
+      <li><span class="num">Recordkeeping.</span> An addition was made to the township&rsquo;s Historic Resources Map.</li>
+      <li><span class="num">Housekeeping.</span> Township offices announced closures for Juneteenth (June 19) and Independence Day observances (July 2&ndash;3), and the Chester County Planning Commission presented the township with an official America250PA Chester County flag.</li>
+    </ul>
+  </article>
+
+  <article class="meeting">
+    <div class="meta">
+      <div class="date">May 20, 2026</div>
+      <div class="links ui">
+        <a href="https://www.tredyffrin.org/files/assets/township/v/1/document-central/meeting-minutes/board-of-supervisors-minutes/2026-bos-minutes/05202026-bos-public-meeting-minutes.pdf" target="_blank" rel="noopener">Official minutes (PDF)</a>
+        <a href="https://www.tredyffrin.org/Departments/Communications/Tredyffrin-Township-TV" target="_blank" rel="noopener">Video archive</a>
+      </div>
+    </div>
+    <div class="tags">
+      <span>Parks &amp; Recreation</span>
+      <span>Infrastructure</span>
+      <span>Governance</span>
+      <span>Public Safety</span>
+    </div>
+    <ul class="highlights">
+      <li><span class="num">Chase Road Park kicks off.</span> The board awarded a $1.77 million contract for Chase Road Park upgrades &mdash; the project that would draw resident pushback the following month.</li>
+      <li><span class="num">Charter change adopted.</span> Following a public hearing, the board voted 6&ndash;0 to adopt Ordinance HR-496, amending the Township&rsquo;s Home Rule Charter.</li>
+      <li><span class="num">Major projects greenlit.</span> $1.17 million for 2026 road paving (Superpave), a $1.33 million TASA grant for Valley Forge Road pedestrian/sidewalk improvements, $24,370 for emergency culvert repairs, and a $147,200 design contract for sanitary sewer main upgrades.</li>
+      <li><span class="num">Appointments.</span> Michele Burger joined the Park &amp; Recreation Board; Mark Dixon and Pearl Nudy were reappointed to the Historical Commission; Kim Tempas joined the Environmental Advisory Council.</li>
+      <li><span class="num">Recognitions.</span> Sergeant Kevin Moore was honored for 46 years of police service; Officer Brittany Rosenfeld received Officer of the Year.</li>
+      <li><span class="num">Student housing concerns.</span> Residents raised issues about student housing in the Mt. Pleasant neighborhood; supervisors committed to working with Villanova University and updating enforcement ordinances.</li>
+    </ul>
+    <div class="watchflag">&#9873; This is where the Chase Road Park storyline above begins.</div>
+  </article>
+
+  <h2 class="section-heading ui" style="margin-top:2.4rem;">How this would work as a real product</h2>
+  <p>This prototype was built by hand from three real sets of official minutes to prove out the concept. A production version would need: (1) an automated pipeline that checks tredyffrin.org for new minutes after each meeting and generates the digest without manual work, (2) a simple way to get it in front of residents &mdash; email or text alert when a new digest is posted, rather than requiring them to check a website, and (3) eventually, coverage of more than one township, since every municipality in Chester County runs its own site and PDF format. None of that is a redesign of this concept &mdash; it&rsquo;s the natural next build phase.</p>
+
+</main>
+
+<footer class="ui">
+  Built as a prototype exploring whether Chester County residents would benefit from plain-language digests of local government meetings. Not affiliated with Tredyffrin Township. Source minutes: <a href="https://www.tredyffrin.org/Minutes-and-agenda" target="_blank" rel="noopener">tredyffrin.org</a>. Also available as an <a href="feed.xml">RSS feed</a>.
+</footer>
+
+</body>
+</html>
