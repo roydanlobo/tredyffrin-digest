@@ -134,6 +134,14 @@ def download_pdf(url: str, dest: Path) -> Path:
     # on tredyffrin.org directly), that's the site actively blocking
     # automated requests rather than a missing file, and worth a look at
     # tredyffrin.org's robots.txt / terms before working around it further.
+    # The PDF lives under /files/assets/... — a classic hotlink-protection
+    # pattern, where the server checks that the request's Referer looks like
+    # it came from clicking a link on their own site, not a bare script
+    # request. Since we only have the direct PDF URL here (not the specific
+    # meeting page that links to it), the site root is the best generic
+    # Referer to send; if 403s persist even with this, it's likely something
+    # more aggressive (TLS/behavioral fingerprinting) that a Referer header
+    # alone won't get past.
     headers = {
         "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -141,8 +149,15 @@ def download_pdf(url: str, dest: Path) -> Path:
         ),
         "Accept": "application/pdf,application/octet-stream,*/*",
         "Accept-Language": "en-US,en;q=0.9",
+        "Referer": "https://www.tredyffrin.org/",
     }
-    resp = requests.get(url, headers=headers, timeout=30)
+    session = requests.Session()
+    # A quick visit to the homepage first, so any session/anti-bot cookie
+    # the server sets on a normal browse gets attached to the actual PDF
+    # request that follows — some WAFs require this handshake before they'll
+    # serve a direct asset request.
+    session.get("https://www.tredyffrin.org/", headers=headers, timeout=30)
+    resp = session.get(url, headers=headers, timeout=30)
     resp.raise_for_status()
     dest.write_bytes(resp.content)
     return dest
