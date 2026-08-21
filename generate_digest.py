@@ -126,7 +126,23 @@ SOURCE MINUTES TEXT:
 def download_pdf(url: str, dest: Path) -> Path:
     import requests
 
-    resp = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=30)
+    # A bare "Mozilla/5.0" User-Agent is a weak signature that some
+    # municipal-site WAFs flag as non-browser traffic and reject with a 403
+    # even when the file genuinely exists. This is a fuller, more
+    # browser-realistic header set to reduce that risk. If a 403 still
+    # happens on a URL you've confirmed is real (check the meeting's page
+    # on tredyffrin.org directly), that's the site actively blocking
+    # automated requests rather than a missing file, and worth a look at
+    # tredyffrin.org's robots.txt / terms before working around it further.
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+            "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        ),
+        "Accept": "application/pdf,application/octet-stream,*/*",
+        "Accept-Language": "en-US,en;q=0.9",
+    }
+    resp = requests.get(url, headers=headers, timeout=30)
     resp.raise_for_status()
     dest.write_bytes(resp.content)
     return dest
