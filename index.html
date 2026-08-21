@@ -253,20 +253,12 @@
     <div class="subscribe">
       <p class="st">Get the next digest by email, the day it&rsquo;s posted.</p>
       <!--
-        SETUP NOTE (remove this comment once configured):
-        This form uses Buttondown's free embeddable subscribe form, which needs
-        no backend of its own. To activate it:
-          1. Create a free account at https://buttondown.com
-          2. Replace "YOUR-USERNAME" in the form's action URL below with your
-             actual Buttondown username.
-        That's it — submissions go straight to your Buttondown subscriber list.
+        Buttondown embeddable subscribe form (newsletter: SummarizeMyDigest).
         Per Buttondown's docs, don't convert this to a JS fetch() submission —
         a plain HTML form post is required so subscribers can complete CAPTCHA
         or see validation errors if needed.
-        (Swap in Mailchimp/Resend/etc. instead if you'd rather use those —
-        this is just the lowest-friction option for a static page like this one.)
       -->
-      <form action="https://buttondown.com/api/emails/embed-subscribe/YOUR-USERNAME" method="post" class="embeddable-buttondown-form">
+      <form action="https://buttondown.com/api/emails/embed-subscribe/SummarizeMyDigest" method="post" class="embeddable-buttondown-form">
         <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address">
         <input type="hidden" value="1" name="embed">
         <input type="submit" value="Subscribe">

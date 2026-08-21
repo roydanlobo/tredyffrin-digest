@@ -204,13 +204,12 @@ article.meeting{{border:1px solid #e3ddd2;border-radius:10px;padding:1.4rem 1.6r
 <h1>{SOURCE_LABEL} — Meeting Digest</h1>
 <p class="ui">Auto-generated from official minutes. Not affiliated with the township.</p>
 
-<!-- Same Buttondown embed pattern as the hand-built prototype — replace
-     YOUR-USERNAME once a Buttondown (or other) account exists. Keep this as
-     a plain HTML form post (not JS fetch) per Buttondown's docs, so
-     CAPTCHA/validation-error flows still work for subscribers. -->
+<!-- Same Buttondown embed pattern as the hand-built prototype (newsletter:
+     SummarizeMyDigest). Keep this as a plain HTML form post (not JS fetch)
+     per Buttondown's docs, so CAPTCHA/validation-error flows still work. -->
 <div class="subscribe ui">
   <strong>Get the next digest by email.</strong>
-  <form action="https://buttondown.com/api/emails/embed-subscribe/YOUR-USERNAME" method="post" class="embeddable-buttondown-form">
+  <form action="https://buttondown.com/api/emails/embed-subscribe/SummarizeMyDigest" method="post" class="embeddable-buttondown-form">
     <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address">
     <input type="hidden" value="1" name="embed">
     <input type="submit" value="Subscribe">
