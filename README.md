@@ -8,25 +8,21 @@ decided.
 **Status:** live at https://digest.platformlens.net/. Tredyffrin Township: 7
 real meetings summarized (February–July 2026), validated with a positive
 Nextdoor/Patch interest poll. Upper Merion Township: 4 real meetings
-summarized (June–August 2026). Limerick Township: 2 real meetings
-summarized (July–August 2026), pulled from its bundled "Resident Packet"
-format — see "Why Limerick doesn't have content yet" below for how that
-works.
+summarized (June–August 2026). Limerick Township was onboarded and had 2
+real meetings summarized, then paused — see "Limerick: paused, not deleted"
+below.
 
 ## What's here
 
 - `index.html` — the Tredyffrin digest page.
-- `upper-merion.html` — the Upper Merion digest page.
-- `limerick.html` — the Limerick digest page. All three pages have a
+- `upper-merion.html` — the Upper Merion digest page. Both pages have a
   "Viewing digests for" dropdown at the top to switch between them.
-- `feed-tredyffrin.xml` / `feed-upper-merion.xml` / `feed-limerick.xml` —
-  one RSS 2.0 feed per township, so subscribing to one never pulls in
-  another's items.
-- `digest_data_tredyffrin.json` / `digest_data_upper-merion.json` /
-  `digest_data_limerick.json` — the underlying data (date, tags,
-  highlights, source URL) per township. This is the source of truth; the
-  RSS feeds (and a generic fallback HTML page, see below) are rendered
-  from it.
+- `feed-tredyffrin.xml` / `feed-upper-merion.xml` — one RSS 2.0 feed per
+  township, so subscribing to one never pulls in the other's items.
+- `digest_data_tredyffrin.json` / `digest_data_upper-merion.json` — the
+  underlying data (date, tags, highlights, source URL) per township. This
+  is the source of truth; the RSS feeds (and a generic fallback HTML page,
+  see below) are rendered from it.
 - `generate_digest.py` — the pipeline: given a minutes PDF (URL or local
   file), a meeting date, and `--township`, it extracts the text, asks
   Claude to write a plain-language digest (tags + highlight bullets),
@@ -35,10 +31,10 @@ works.
 
   Note: the script renders to `<township>-digest-generated.html`, a plain
   fallback template — it does **not** update the real hand-styled pages
-  (`index.html`, `upper-merion.html`, `limerick.html`) directly. Merging
-  those is on the to-do list below; for now, updating the real pages after
-  a new meeting is a manual step (or ask the assistant to do it, same as
-  for the initial backfill).
+  (`index.html`, `upper-merion.html`) directly. Merging those is on the
+  to-do list below; for now, updating the real pages after a new meeting is
+  a manual step (or ask the assistant to do it, same as for the initial
+  backfill).
 - `catchup_email.py` — one-time "here's everything you missed" email
   generator, per township (see below).
 
@@ -69,13 +65,9 @@ since a confirmed-real URL that loads fine by hand still 403'd from
 `requests`. `download_pdf()` drives a real headless Chromium browser via
 Playwright instead, which gets past it because it *is* a real browser as
 far as the site can tell. This isn't Tredyffrin-specific code — it's since
-been confirmed working for Upper Merion too. Limerick's AgendaCenter file
-endpoints show the same shape of blocking in testing (listing pages fetch
-fine, the PDF links themselves don't via plain tooling), so Playwright
-should work there as well, but that's not proven yet — worth confirming on
-the first real Limerick run. If a township's site changes its protection or
-blocks even Playwright, `--file` (pointing at a manually-downloaded copy)
-is the fallback either way.
+been confirmed working for Upper Merion too. If a township's site changes
+its protection or blocks even Playwright, `--file` (pointing at a
+manually-downloaded copy) is the fallback either way.
 
 ## Usage — after a new meeting posts minutes
 
@@ -87,7 +79,6 @@ is the fallback either way.
    ```bash
    python generate_digest.py --township tredyffrin --url "<minutes-pdf-url>" --date "2026-09-08"
    python generate_digest.py --township upper-merion --url "<minutes-pdf-url>" --date "2026-05-14"
-   python generate_digest.py --township limerick --url "<minutes-pdf-url>" --date "2026-01-20"
    ```
 
    `--township` defaults to `tredyffrin` if omitted, so old commands from
@@ -96,13 +87,9 @@ is the fallback either way.
 3. **Read the output against the source PDF before publishing anything.**
    These digests state facts about local government — dollar amounts, vote
    counts, who said what — and an AI summary of a scanned PDF can misread a
-   number. A quick check is cheap insurance. This matters even more for
-   Limerick, given how contentious the data center topic already is locally
-   — a wrong number or an overstated "the board voted X" there does more
-   damage than the same mistake somewhere quieter.
-4. Update the real page (`index.html`, `upper-merion.html`, or
-   `limerick.html`) with the new entry — this isn't automated yet (see
-   "What's here" above).
+   number. A quick check is cheap insurance.
+4. Update the real page (`index.html` or `upper-merion.html`) with the new
+   entry — this isn't automated yet (see "What's here" above).
 
 To just rebuild a township's RSS/generic HTML from existing data without
 adding a new meeting: `python generate_digest.py --township upper-merion --render-only`.
@@ -135,90 +122,56 @@ you give it, but *you* need to check each PDF's actual content (does it
 show votes/outcomes, or just a proposed agenda?) before treating a given
 URL as authoritative, regardless of which folder it's filed under.
 
-### Why Limerick doesn't have content yet — and its "Resident Packet" format
+### Limerick: paused, not deleted
 
-Limerick was researched and onboarded (config, site page, RSS feed) but no
-meetings have been run through the pipeline yet. Limerick runs on the same
-CivicPlus AgendaCenter platform as Upper Merion.
+Limerick Township was researched, onboarded, and had two real meetings
+(July 28 and August 4, 2026) summarized and published — then paused, since
+its PDFs turned out to be significantly more work to maintain than the
+other two townships: instead of one meeting per PDF, its newer postings
+bundle several meetings' minutes, the current agenda, and ~85 pages of
+unrelated exhibits into a single 100+ page "Resident Packet" (one real
+example ran 33MB). A real parser (`extract_minutes_section()`, still in
+`generate_digest.py`) was built and tested to isolate just the right
+Minutes section from a packet, and it works, but every future Limerick
+meeting would need that same kind of care, more upkeep than seemed worth
+it for a third township at this stage.
 
-Two older standalone Minutes PDFs are known to exist (single meeting per
-file, same shape as Tredyffrin/Upper Merion — no splitting needed):
+Nothing was thrown away: `limerick.html`, `digest_data_limerick.json`, and
+`feed-limerick.xml` still exist on disk with the two real entries, just no
+longer linked from the live site or referenced in `TOWNSHIPS`. To revive
+it: un-comment the `"limerick"` block in `TOWNSHIPS` (see the comment right
+above it in `generate_digest.py`), re-add its dropdown option and footer
+link to `index.html`/`upper-merion.html`, and re-add its cross-links there.
+If you do, the site's `CNAME`/GitHub Pages setup doesn't need anything
+new — `limerick.html` still deploys automatically as part of the repo,
+just wasn't being linked to.
 
-- February 17, 2026 — `https://www.limerickpa.org/AgendaCenter/ViewFile/Minutes/_02172026-617`
-- January 20, 2026 — `https://www.limerickpa.org/AgendaCenter/ViewFile/Minutes/_01202026-614`
+## Buttondown: one newsletter, two tags (currently unused — free plan)
 
-But Limerick appears to have since moved to a **consolidated "Resident
-Packet" format**: checked for a standalone Minutes entry matching the
-August 19, 2026 packet (`_08192026-642`) and it doesn't exist under the
-Minutes category at all — that packet only exists under Agenda. Confirmed
-by reading a real one (the user shared `8-19-26 Resident Packet.pdf`
-directly, 109 pages): it bundles that meeting's own Agenda (pages 1-3), the
-Minutes of the two meetings *before* it pending approval (July 28 on pages
-13-19, August 4 on pages 20-24), then ~85 pages of unrelated land-
-development resolutions, survey exhibits, and a police presentation on
-e-bike safety — not minutes at all.
-
-Each Minutes section is reliably self-labeled though: its first page reads
-"LIMERICK TOWNSHIP - BOARD OF SUPERVISORS &lt;DATE&gt;" / "REGULAR MEETING
-MINUTES", and every following page in that section carries a running header
-"Board of Supervisors / &lt;date&gt; / Page N, Minutes". `generate_digest.py`
-now has `extract_minutes_section()`, which uses those two header patterns
-to pull out just the pages for a given `--date` — tested directly against
-the real August 19 packet (correctly isolated both the July 28 and August 4
-sections, 15,135 and 8,380 characters respectively, and correctly returned
-nothing for a date that isn't in the packet). Limerick's `TOWNSHIPS` entry
-now has `"bundled_packet": True`, so `main()` automatically routes through
-this instead of the plain `extract_text()` whenever `--township limerick`
-is used — no extra flag needed, just pass the packet PDF (via `--url` or
-`--file`) and the correct `--date`.
-
-Confirmed: Resident Packet PDFs download directly from limerickpa.org
-without hitting the WAF-style blocking Tredyffrin/Upper Merion needed
-Playwright for — so `--url` works here, `--file` isn't required the way it
-was for the one packet used to build and test `extract_minutes_section()`.
-If a future packet ever puts a Minutes section past page 60,
-`extract_minutes_section()`'s `max_scan_pages` will need raising (see its
-docstring).
-
-Limerick has had real local news coverage of resident pushback on a
-proposed data center, plus its long-running proximity to the Limerick
-Generating Station (nuclear) — worth being extra careful with accuracy here
-specifically (see the note in "Usage" above).
-
-The likely official video channel is
-`https://www.youtube.com/@LimerickTownship1726`, found via search but not
-independently confirmed — check it actually is the meeting-recording
-channel before it's relied on for a "Video archive" link the way Tredyffrin
-and Upper Merion's pages use one.
-
-## Buttondown: one newsletter, three tags (currently unused — free plan)
-
-All three townships share one Buttondown newsletter (`SummarizeMyDigest`)
+Both townships share one Buttondown newsletter (`SummarizeMyDigest`)
 rather than running separate accounts. Each page's subscribe form still
-silently tags the subscriber (`tredyffrin`, `upper-merion`, or `limerick`
-— see the hidden `tag` field in each page's form), but **tagging &
-segmentation is a paid Buttondown add-on ($9/mo)**, not included on the
-free plan. As of now, none of the `BUTTONDOWN_TAG_*` env vars below are
-set, so every draft goes out to every subscriber regardless of which page
-they signed up from — the per-township tag on signup is stored (harmless,
-and useful later if this gets upgraded) but doesn't currently filter
-anything. This is a deliberate choice at 9 subscribers, not a bug — each
-page's subscribe-form fine print says as much, and points to that
-township's RSS feed for anyone who wants just one township without the
-email noise.
+silently tags the subscriber (`tredyffrin` or `upper-merion` — see the
+hidden `tag` field in each page's form), but **tagging & segmentation is a
+paid Buttondown add-on ($9/mo)**, not included on the free plan. As of now,
+none of the `BUTTONDOWN_TAG_*` env vars below are set, so every draft goes
+out to every subscriber regardless of which page they signed up from — the
+per-township tag on signup is stored (harmless, and useful later if this
+gets upgraded) but doesn't currently filter anything. This is a deliberate
+choice at 9 subscribers, not a bug — each page's subscribe-form fine print
+says as much, and points to that township's RSS feed for anyone who wants
+just one township without the email noise.
 
 If/when it's worth paying for (bigger list, people complaining about
-getting all three townships), here's how to make targeted sending actually
+getting both townships), here's how to make targeted sending actually
 work:
 
-1. In Buttondown, go to Tags and create three tags: `tredyffrin`,
-   `upper-merion`, and `limerick`.
+1. In Buttondown, go to Tags and create two tags: `tredyffrin` and
+   `upper-merion`.
 2. Get each tag's ID (`GET /v1/tags` with your API key, or the dashboard).
 3. Set them as environment variables:
    ```bash
    export BUTTONDOWN_TAG_TREDYFFRIN=sub_tag_...
    export BUTTONDOWN_TAG_UPPER_MERION=sub_tag_...
-   export BUTTONDOWN_TAG_LIMERICK=sub_tag_...
    ```
 4. `generate_digest.py` and `catchup_email.py` will then filter each
    township's draft to just that tag's subscribers automatically. If a
@@ -228,12 +181,11 @@ work:
 
 ### Catching up new subscribers
 
-`catchup_email.py --township tredyffrin` (or `upper-merion` / `limerick`)
-rolls up every entry in that township's data file into a single DRAFT
-email — useful for a subscriber who joins today and would otherwise miss
-all the history. Like every other draft here, it's created as a draft
-only; nothing sends until you review it in the Buttondown dashboard and
-hit Send.
+`catchup_email.py --township tredyffrin` (or `upper-merion`) rolls up every
+entry in that township's data file into a single DRAFT email — useful for
+a subscriber who joins today and would otherwise miss all the history.
+Like every other draft here, it's created as a draft only; nothing sends
+until you review it in the Buttondown dashboard and hit Send.
 
 ## How this idea was validated
 
@@ -272,25 +224,21 @@ hit Send.
 ## Open next steps
 
 1. Merge `generate_digest.py`'s output template with the styled pages so a
-   script run updates `index.html`/`upper-merion.html`/`limerick.html`
-   directly, not a separate generic file.
-2. Process real Limerick meetings — the August 19 Resident Packet has two
-   ready to go (July 28 and August 4), and downloading packet PDFs directly
-   from limerickpa.org is confirmed working. Run them through
-   `--township limerick` and update `limerick.html` with the results.
-3. Automate discovery of new meetings per township (each township needs
+   script run updates `index.html`/`upper-merion.html` directly, not a
+   separate generic file.
+2. Automate discovery of new meetings per township (each township needs
    its own logic — see the module docstring in `generate_digest.py` for
    each site's known URL pattern). Currently the URL still has to be found
-   and passed in by hand for all three.
-4. Cross-meeting "storyline" detection (e.g. the Chase Road Park thread
+   and passed in by hand for both.
+3. Cross-meeting "storyline" detection (e.g. the Chase Road Park thread
    tracked across three Tredyffrin meetings) is currently done by a human
    reading multiple meetings side by side — worth treating as its own
    problem rather than folding into single-meeting summarization.
-5. Create the three Buttondown tags and set the `BUTTONDOWN_TAG_*` env vars
+4. Create the two Buttondown tags and set the `BUTTONDOWN_TAG_*` env vars
    (see above) — without them, drafts go out untargeted.
-6. Confirm the likely Limerick YouTube channel is actually the official
-   meeting-recording one before adding a "Video archive" link to real
-   Limerick entries the way the other two townships have.
-7. Beyond these three: every Chester/Montgomery County municipality has its
-   own site and PDF format, so each additional township is real per-site
-   work, not a config change.
+5. Revisit Limerick once there's bandwidth for its extra upkeep (see
+   "Limerick: paused, not deleted" above) — its two real meetings are
+   already summarized and waiting.
+6. Beyond these: every Chester/Montgomery County municipality has its own
+   site and PDF format, so each additional township is real per-site work,
+   not a config change.
