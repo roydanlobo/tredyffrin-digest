@@ -161,15 +161,25 @@ independently confirmed — check it actually is the meeting-recording
 channel before it's relied on for a "Video archive" link the way Tredyffrin
 and Upper Merion's pages use one.
 
-## Buttondown: one newsletter, three tags
+## Buttondown: one newsletter, three tags (currently unused — free plan)
 
 All three townships share one Buttondown newsletter (`SummarizeMyDigest`)
-rather than running separate accounts. Each page's subscribe form silently
-tags the subscriber (`tredyffrin`, `upper-merion`, or `limerick` — see the
-hidden `tag` field in each page's form), so someone who only cares about
-one township only gets that one's digests, not all three.
+rather than running separate accounts. Each page's subscribe form still
+silently tags the subscriber (`tredyffrin`, `upper-merion`, or `limerick`
+— see the hidden `tag` field in each page's form), but **tagging &
+segmentation is a paid Buttondown add-on ($9/mo)**, not included on the
+free plan. As of now, none of the `BUTTONDOWN_TAG_*` env vars below are
+set, so every draft goes out to every subscriber regardless of which page
+they signed up from — the per-township tag on signup is stored (harmless,
+and useful later if this gets upgraded) but doesn't currently filter
+anything. This is a deliberate choice at 9 subscribers, not a bug — each
+page's subscribe-form fine print says as much, and points to that
+township's RSS feed for anyone who wants just one township without the
+email noise.
 
-To make targeted sending actually work:
+If/when it's worth paying for (bigger list, people complaining about
+getting all three townships), here's how to make targeted sending actually
+work:
 
 1. In Buttondown, go to Tags and create three tags: `tredyffrin`,
    `upper-merion`, and `limerick`.

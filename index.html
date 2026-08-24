@@ -285,13 +285,15 @@
       <form action="https://buttondown.com/api/emails/embed-subscribe/SummarizeMyDigest" method="post" class="embeddable-buttondown-form">
         <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address">
         <input type="hidden" value="1" name="embed">
-        <!-- Tags this subscriber "tredyffrin" so a shared Buttondown newsletter
-             can send Tredyffrin digests only to people who subscribed here,
-             not to Upper Merion-only subscribers. See README for setup. -->
+        <!-- Tags this subscriber "tredyffrin". Tag-based sending needs
+             Buttondown's paid segmentation add-on, not in use right now, so
+             this doesn't filter anything yet — it's just stored for later.
+             Every subscriber currently gets every township's digest. See
+             README's Buttondown section for details/setup. -->
         <input type="hidden" name="tag" value="tredyffrin">
         <input type="submit" value="Subscribe">
       </form>
-      <p class="fine">No spam &mdash; sent only when a new digest is posted, roughly twice a month. Unsubscribe anytime. Prefer a feed reader? <a href="feed-tredyffrin.xml">Subscribe via RSS</a> instead.</p>
+      <p class="fine">No spam &mdash; sent only when a new digest is posted, roughly twice a month. Right now this list isn&rsquo;t split by township, so you&rsquo;ll get every digest we publish, not just Tredyffrin&rsquo;s. Unsubscribe anytime, or if you only want Tredyffrin, use <a href="feed-tredyffrin.xml">the RSS feed</a> instead of email.</p>
     </div>
   </div>
 </header>
