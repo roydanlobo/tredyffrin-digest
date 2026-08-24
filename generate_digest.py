@@ -309,7 +309,7 @@ def _parse_packet_date(raw: str):
     return datetime.strptime(raw.title(), "%B %d, %Y").date()
 
 
-def extract_minutes_section(pdf_path: Path, target_date: str, max_scan_pages: int = 60) -> str:
+def extract_minutes_section(pdf_path: Path, target_date: str, max_scan_pages: int = 60):
     """For townships whose PDFs bundle multiple meetings together (see the
     "bundled_packet" flag in TOWNSHIPS) — pull out just the pages belonging
     to the Minutes section for `target_date` (YYYY-MM-DD), so a packet feeds
@@ -328,20 +328,27 @@ def extract_minutes_section(pdf_path: Path, target_date: str, max_scan_pages: in
     packet — in the one real packet tested, Minutes sections were done by
     page 24, so 60 is a generous buffer. If a future packet legitimately
     puts Minutes further in and this comes back empty, raise it.
+
+    Returns (text, start_page) — start_page is the 1-indexed page the
+    section starts on (or None if nothing matched), so callers can build a
+    direct-to-the-right-page link (e.g. "<url>#page=13") instead of pointing
+    a reader at page 1 of a 100+ page packet.
     """
     target = datetime.strptime(target_date, "%Y-%m-%d").date()
     import pdfplumber
 
     matched_pages = []
+    start_page = None
     found_target_section = False
     with pdfplumber.open(pdf_path) as pdf:
-        for page in pdf.pages[:max_scan_pages]:
+        for page_num, page in enumerate(pdf.pages[:max_scan_pages], start=1):
             text = page.extract_text() or ""
 
             start_match = _PACKET_MINUTES_START_RE.match(text)
             if start_match:
                 if _parse_packet_date(start_match.group(1)) == target:
                     found_target_section = True
+                    start_page = start_page or page_num
                     matched_pages.append(text)
                 elif found_target_section:
                     break  # a different section started — ours is over
@@ -351,6 +358,7 @@ def extract_minutes_section(pdf_path: Path, target_date: str, max_scan_pages: in
             if cont_match:
                 if _parse_packet_date(cont_match.group(1)) == target:
                     found_target_section = True
+                    start_page = start_page or page_num
                     matched_pages.append(text)
                 elif found_target_section:
                     break
@@ -362,7 +370,7 @@ def extract_minutes_section(pdf_path: Path, target_date: str, max_scan_pages: in
             if found_target_section:
                 break
 
-    return "\n\n".join(matched_pages).strip()
+    return "\n\n".join(matched_pages).strip(), start_page
 
 
 def summarize_with_claude(minutes_text: str, meeting_date: str, township_label: str) -> dict:
@@ -624,7 +632,7 @@ def main():
 
     print("Extracting text ...")
     if township.get("bundled_packet"):
-        text = extract_minutes_section(pdf_path, args.date)
+        text, start_page = extract_minutes_section(pdf_path, args.date)
         if not text:
             sys.exit(
                 f"No Minutes section found for {args.date} in this packet. "
@@ -634,6 +642,12 @@ def main():
                 "layout doesn't match what extract_minutes_section() "
                 "expects — worth a manual look at the PDF either way."
             )
+        # A bundled packet can be 100+ pages — link straight to the page the
+        # Minutes section starts on (most PDF viewers, including browsers'
+        # built-in ones, honor a #page=N fragment) instead of dropping a
+        # reader on page 1 of someone else's meeting.
+        if start_page:
+            minutes_url = f"{minutes_url}#page={start_page}"
     else:
         text = extract_text(pdf_path)
         if not text:

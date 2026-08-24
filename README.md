@@ -8,9 +8,10 @@ decided.
 **Status:** live at https://digest.platformlens.net/. Tredyffrin Township: 7
 real meetings summarized (February–July 2026), validated with a positive
 Nextdoor/Patch interest poll. Upper Merion Township: 4 real meetings
-summarized (June–August 2026). Limerick Township: just onboarded (site
-page, RSS feed, pipeline support in place), no meetings processed yet —
-see "Why Limerick doesn't have content yet" below.
+summarized (June–August 2026). Limerick Township: 2 real meetings
+summarized (July–August 2026), pulled from its bundled "Resident Packet"
+format — see "Why Limerick doesn't have content yet" below for how that
+works.
 
 ## What's here
 
@@ -171,11 +172,11 @@ this instead of the plain `extract_text()` whenever `--township limerick`
 is used — no extra flag needed, just pass the packet PDF (via `--url` or
 `--file`) and the correct `--date`.
 
-What's still unproven: whether `download_pdf()`'s Playwright approach
-actually fetches these Resident Packet PDFs from limerickpa.org — the one
-tested against was manually downloaded and shared directly, not pulled by
-the pipeline itself. Worth confirming on the first real run. If a future
-packet ever puts a Minutes section past page 60,
+Confirmed: Resident Packet PDFs download directly from limerickpa.org
+without hitting the WAF-style blocking Tredyffrin/Upper Merion needed
+Playwright for — so `--url` works here, `--file` isn't required the way it
+was for the one packet used to build and test `extract_minutes_section()`.
+If a future packet ever puts a Minutes section past page 60,
 `extract_minutes_section()`'s `max_scan_pages` will need raising (see its
 docstring).
 
@@ -232,8 +233,7 @@ rolls up every entry in that township's data file into a single DRAFT
 email — useful for a subscriber who joins today and would otherwise miss
 all the history. Like every other draft here, it's created as a draft
 only; nothing sends until you review it in the Buttondown dashboard and
-hit Send. (Limerick's data file is currently empty, so this has nothing to
-roll up until the first real meeting is processed.)
+hit Send.
 
 ## How this idea was validated
 
@@ -274,10 +274,10 @@ roll up until the first real meeting is processed.)
 1. Merge `generate_digest.py`'s output template with the styled pages so a
    script run updates `index.html`/`upper-merion.html`/`limerick.html`
    directly, not a separate generic file.
-2. Process real Limerick meetings — the two URLs above are a starting
-   point; run them through `--township limerick` locally, and confirm the
-   Playwright download step actually works against limerickpa.org (see
-   "Why Limerick doesn't have content yet" above — likely, not yet proven).
+2. Process real Limerick meetings — the August 19 Resident Packet has two
+   ready to go (July 28 and August 4), and downloading packet PDFs directly
+   from limerickpa.org is confirmed working. Run them through
+   `--township limerick` and update `limerick.html` with the results.
 3. Automate discovery of new meetings per township (each township needs
    its own logic — see the module docstring in `generate_digest.py` for
    each site's known URL pattern). Currently the URL still has to be found
