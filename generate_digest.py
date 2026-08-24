@@ -89,6 +89,12 @@ USAGE
     # From a PDF you already have on disk:
     python generate_digest.py --township tredyffrin --file ./minutes.pdf --date "2026-07-20"
 
+    # Limerick's newer "Resident Packet" PDFs bundle several meetings'
+    # minutes together (see TOWNSHIPS["limerick"]["bundled_packet"] and
+    # extract_minutes_section() below) — same command either way, --date
+    # picks out just that one meeting's Minutes section from the packet:
+    python generate_digest.py --township limerick --file "./8-19-26 Resident Packet.pdf" --date "2026-07-28"
+
     # Rebuild the RSS/generic HTML from digest_data_<township>.json without adding anything new:
     python generate_digest.py --township tredyffrin --render-only
 
@@ -99,7 +105,9 @@ multi-township support still work unchanged.
 import argparse
 import json
 import os
+import re
 import sys
+from datetime import datetime
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
@@ -145,6 +153,14 @@ TOWNSHIPS = {
         # couldn't be fetched to verify). Double-check before relying on it.
         "video_url": "https://www.youtube.com/@LimerickTownship1726",
         "buttondown_tag_env": "BUTTONDOWN_TAG_LIMERICK",
+        # Unlike Tredyffrin/Upper Merion, Limerick doesn't (currently) post a
+        # standalone single-meeting Minutes PDF for every meeting — checked
+        # for one matching a real "Resident Packet" and it doesn't exist.
+        # Instead the packet posted under the Agenda category bundles that
+        # meeting's own agenda, the Minutes of the 1-2 meetings before it
+        # (pending approval), and ~85 pages of unrelated exhibits/attachments
+        # into one PDF. See extract_minutes_section() below.
+        "bundled_packet": True,
     },
 }
 
@@ -268,6 +284,85 @@ def extract_text(pdf_path: Path) -> str:
             page_text = page.extract_text() or ""
             text_parts.append(page_text)
     return "\n".join(text_parts).strip()
+
+
+# Marks the first page of a Minutes section, e.g.:
+#   "LIMERICK TOWNSHIP - BOARD OF SUPERVISORS JULY 28, 2026"
+#   "REGULAR MEETING MINUTES 7:02 P.M."
+_PACKET_MINUTES_START_RE = re.compile(
+    r"^LIMERICK TOWNSHIP\s*-\s*BOARD OF SUPERVISORS\s+([A-Za-z]+ \d{1,2},\s*\d{4})"
+    r"\s*\n\s*REGULAR MEETING MINUTES",
+    re.IGNORECASE,
+)
+# Marks every following page of that same section, e.g.:
+#   "Board of Supervisors"
+#   "July 28, 2026"
+#   "Page 2, Minutes"
+_PACKET_MINUTES_CONT_RE = re.compile(
+    r"^Board of Supervisors\s*\n\s*([A-Za-z]+ \d{1,2},\s*\d{4})\s*\n\s*Page \d+,\s*Minutes",
+    re.IGNORECASE,
+)
+
+
+def _parse_packet_date(raw: str):
+    # "JULY 28, 2026" / "July 28, 2026" -> date(2026, 7, 28)
+    return datetime.strptime(raw.title(), "%B %d, %Y").date()
+
+
+def extract_minutes_section(pdf_path: Path, target_date: str, max_scan_pages: int = 60) -> str:
+    """For townships whose PDFs bundle multiple meetings together (see the
+    "bundled_packet" flag in TOWNSHIPS) — pull out just the pages belonging
+    to the Minutes section for `target_date` (YYYY-MM-DD), so a packet feeds
+    summarize_with_claude() the same clean single-meeting text that
+    Tredyffrin/Upper Merion's one-meeting-per-PDF sites already do.
+
+    Built and tested against one real Limerick "Resident Packet" (August 19,
+    2026): pages 1-3 were that meeting's own Agenda, pages 13-19 and 20-24
+    were Minutes sections for the two meetings before it (July 28 and August
+    4), and everything past that (~85 pages) was land-development
+    resolutions, survey exhibits, and an unrelated police presentation — not
+    minutes. Every Minutes page is reliably self-labeled (see the two regexes
+    above), which is what this relies on rather than fixed page numbers.
+
+    max_scan_pages is a pragmatic cap, not a hard fact about every future
+    packet — in the one real packet tested, Minutes sections were done by
+    page 24, so 60 is a generous buffer. If a future packet legitimately
+    puts Minutes further in and this comes back empty, raise it.
+    """
+    target = datetime.strptime(target_date, "%Y-%m-%d").date()
+    import pdfplumber
+
+    matched_pages = []
+    found_target_section = False
+    with pdfplumber.open(pdf_path) as pdf:
+        for page in pdf.pages[:max_scan_pages]:
+            text = page.extract_text() or ""
+
+            start_match = _PACKET_MINUTES_START_RE.match(text)
+            if start_match:
+                if _parse_packet_date(start_match.group(1)) == target:
+                    found_target_section = True
+                    matched_pages.append(text)
+                elif found_target_section:
+                    break  # a different section started — ours is over
+                continue
+
+            cont_match = _PACKET_MINUTES_CONT_RE.match(text)
+            if cont_match:
+                if _parse_packet_date(cont_match.group(1)) == target:
+                    found_target_section = True
+                    matched_pages.append(text)
+                elif found_target_section:
+                    break
+                continue
+
+            # Page doesn't look like a Minutes page at all (agenda, exhibit,
+            # blank/image page) — if we were mid-section, that section just
+            # ended.
+            if found_target_section:
+                break
+
+    return "\n\n".join(matched_pages).strip()
 
 
 def summarize_with_claude(minutes_text: str, meeting_date: str, township_label: str) -> dict:
@@ -528,9 +623,21 @@ def main():
         minutes_url = f"file://{pdf_path.resolve()}"
 
     print("Extracting text ...")
-    text = extract_text(pdf_path)
-    if not text:
-        sys.exit("No text extracted from PDF — it may be a scanned image without OCR text.")
+    if township.get("bundled_packet"):
+        text = extract_minutes_section(pdf_path, args.date)
+        if not text:
+            sys.exit(
+                f"No Minutes section found for {args.date} in this packet. "
+                "Either the date's wrong, this packet doesn't actually "
+                "contain that meeting's minutes yet (it may still be "
+                "pending approval at a future meeting), or the packet's "
+                "layout doesn't match what extract_minutes_section() "
+                "expects — worth a manual look at the PDF either way."
+            )
+    else:
+        text = extract_text(pdf_path)
+        if not text:
+            sys.exit("No text extracted from PDF — it may be a scanned image without OCR text.")
 
     print("Summarizing with Claude ...")
     digest = summarize_with_claude(text, args.date, township["label"])

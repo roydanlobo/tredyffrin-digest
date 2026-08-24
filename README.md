@@ -134,26 +134,55 @@ you give it, but *you* need to check each PDF's actual content (does it
 show votes/outcomes, or just a proposed agenda?) before treating a given
 URL as authoritative, regardless of which folder it's filed under.
 
-### Why Limerick doesn't have content yet
+### Why Limerick doesn't have content yet — and its "Resident Packet" format
 
 Limerick was researched and onboarded (config, site page, RSS feed) but no
 meetings have been run through the pipeline yet. Limerick runs on the same
-CivicPlus AgendaCenter platform as Upper Merion, and its listings actually
-separate "Minutes" from "Agenda" more cleanly than Upper Merion's do — so
-the folder-naming quirk above is less likely to bite here, but still worth
-checking per-PDF rather than assuming.
+CivicPlus AgendaCenter platform as Upper Merion.
 
-Known real minutes URLs to start with (Board of Supervisors, from
-limerickpa.org/agendacenter):
+Two older standalone Minutes PDFs are known to exist (single meeting per
+file, same shape as Tredyffrin/Upper Merion — no splitting needed):
 
 - February 17, 2026 — `https://www.limerickpa.org/AgendaCenter/ViewFile/Minutes/_02172026-617`
 - January 20, 2026 — `https://www.limerickpa.org/AgendaCenter/ViewFile/Minutes/_01202026-614`
 
-More can be found at limerickpa.org/agendacenter under Board of
-Supervisors. Limerick has had real local news coverage of resident
-pushback on a proposed data center, plus its long-running proximity to the
-Limerick Generating Station (nuclear) — worth being extra careful with
-accuracy here specifically (see the note in "Usage" above).
+But Limerick appears to have since moved to a **consolidated "Resident
+Packet" format**: checked for a standalone Minutes entry matching the
+August 19, 2026 packet (`_08192026-642`) and it doesn't exist under the
+Minutes category at all — that packet only exists under Agenda. Confirmed
+by reading a real one (the user shared `8-19-26 Resident Packet.pdf`
+directly, 109 pages): it bundles that meeting's own Agenda (pages 1-3), the
+Minutes of the two meetings *before* it pending approval (July 28 on pages
+13-19, August 4 on pages 20-24), then ~85 pages of unrelated land-
+development resolutions, survey exhibits, and a police presentation on
+e-bike safety — not minutes at all.
+
+Each Minutes section is reliably self-labeled though: its first page reads
+"LIMERICK TOWNSHIP - BOARD OF SUPERVISORS &lt;DATE&gt;" / "REGULAR MEETING
+MINUTES", and every following page in that section carries a running header
+"Board of Supervisors / &lt;date&gt; / Page N, Minutes". `generate_digest.py`
+now has `extract_minutes_section()`, which uses those two header patterns
+to pull out just the pages for a given `--date` — tested directly against
+the real August 19 packet (correctly isolated both the July 28 and August 4
+sections, 15,135 and 8,380 characters respectively, and correctly returned
+nothing for a date that isn't in the packet). Limerick's `TOWNSHIPS` entry
+now has `"bundled_packet": True`, so `main()` automatically routes through
+this instead of the plain `extract_text()` whenever `--township limerick`
+is used — no extra flag needed, just pass the packet PDF (via `--url` or
+`--file`) and the correct `--date`.
+
+What's still unproven: whether `download_pdf()`'s Playwright approach
+actually fetches these Resident Packet PDFs from limerickpa.org — the one
+tested against was manually downloaded and shared directly, not pulled by
+the pipeline itself. Worth confirming on the first real run. If a future
+packet ever puts a Minutes section past page 60,
+`extract_minutes_section()`'s `max_scan_pages` will need raising (see its
+docstring).
+
+Limerick has had real local news coverage of resident pushback on a
+proposed data center, plus its long-running proximity to the Limerick
+Generating Station (nuclear) — worth being extra careful with accuracy here
+specifically (see the note in "Usage" above).
 
 The likely official video channel is
 `https://www.youtube.com/@LimerickTownship1726`, found via search but not
