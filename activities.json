@@ -5,8 +5,14 @@
       "id": "trunk-or-treat-2026",
       "name": "Trunk or Treat",
       "category": "event",
-      "seasons": ["fall"],
-      "age_groups": ["preschool", "elementary", "middle"],
+      "seasons": [
+        "fall"
+      ],
+      "age_groups": [
+        "preschool",
+        "elementary",
+        "middle"
+      ],
       "ages_label": "All ages",
       "provider": "Tredyffrin Township Parks & Recreation",
       "town": "Tredyffrin",
@@ -25,8 +31,13 @@
       "id": "tennis-fall2-2026",
       "name": "Youth Tennis Clinics, Fall 2 (Saturdays)",
       "category": "sports",
-      "seasons": ["fall"],
-      "age_groups": ["elementary", "middle"],
+      "seasons": [
+        "fall"
+      ],
+      "age_groups": [
+        "elementary",
+        "middle"
+      ],
       "ages_label": "Grades 1–8",
       "provider": "Universal Rackets (via Tredyffrin Township)",
       "town": "Tredyffrin",
@@ -45,8 +56,12 @@
       "id": "soccer-shots-fall-2026",
       "name": "Soccer Shots at Wilson Farm Park",
       "category": "sports",
-      "seasons": ["fall"],
-      "age_groups": ["preschool"],
+      "seasons": [
+        "fall"
+      ],
+      "age_groups": [
+        "preschool"
+      ],
       "ages_label": "Ages 2–6",
       "provider": "Soccer Shots (via Tredyffrin Township)",
       "town": "Tredyffrin",
@@ -65,8 +80,13 @@
       "id": "winter-rec-2026-27",
       "name": "Winter Recreation Program",
       "category": "program",
-      "seasons": ["winter"],
-      "age_groups": ["elementary", "middle"],
+      "seasons": [
+        "winter"
+      ],
+      "age_groups": [
+        "elementary",
+        "middle"
+      ],
       "ages_label": "Grades K–6",
       "provider": "Tredyffrin Township Parks & Recreation",
       "town": "Tredyffrin",
@@ -85,8 +105,14 @@
       "id": "tree-lighting-2026",
       "name": "Tree Lighting Celebration",
       "category": "event",
-      "seasons": ["winter"],
-      "age_groups": ["preschool", "elementary", "middle"],
+      "seasons": [
+        "winter"
+      ],
+      "age_groups": [
+        "preschool",
+        "elementary",
+        "middle"
+      ],
       "ages_label": "All ages",
       "provider": "Tredyffrin Township Parks & Recreation",
       "town": "Tredyffrin",
@@ -105,8 +131,14 @@
       "id": "mini-hoopers",
       "name": "Mini Hoopers Basketball",
       "category": "sports",
-      "seasons": ["winter", "spring"],
-      "age_groups": ["preschool", "elementary"],
+      "seasons": [
+        "winter",
+        "spring"
+      ],
+      "age_groups": [
+        "preschool",
+        "elementary"
+      ],
       "ages_label": "Ages 4–6",
       "provider": "PA Hoops Academy (via Tredyffrin Township)",
       "town": "Tredyffrin",
@@ -125,7 +157,10 @@
       "id": "tred-pickleball",
       "name": "Pickleball",
       "category": "sports",
-      "seasons": ["spring", "summer"],
+      "seasons": [
+        "spring",
+        "summer"
+      ],
       "age_groups": [],
       "ages_label": "See township page",
       "provider": "Tredyffrin Township Parks & Recreation",
@@ -145,7 +180,9 @@
       "id": "tred-summer-day-camp",
       "name": "Tredyffrin Summer Day Camp",
       "category": "camp",
-      "seasons": ["summer"],
+      "seasons": [
+        "summer"
+      ],
       "age_groups": [],
       "ages_label": "See township page",
       "provider": "Tredyffrin Township Parks & Recreation",
@@ -165,7 +202,9 @@
       "id": "tred-basketball-camp",
       "name": "Basketball Camp",
       "category": "camp",
-      "seasons": ["summer"],
+      "seasons": [
+        "summer"
+      ],
       "age_groups": [],
       "ages_label": "See township page",
       "provider": "Tredyffrin Township Parks & Recreation",
@@ -185,7 +224,9 @@
       "id": "tred-lacrosse",
       "name": "Lacrosse",
       "category": "sports",
-      "seasons": ["summer"],
+      "seasons": [
+        "summer"
+      ],
       "age_groups": [],
       "ages_label": "See township page",
       "provider": "Tredyffrin Township Parks & Recreation",
@@ -205,21 +246,224 @@
       "id": "easttown-summer-rec",
       "name": "Easttown Summer Recreation Program",
       "category": "camp",
-      "seasons": ["summer"],
-      "age_groups": ["elementary", "middle"],
+      "seasons": [
+        "summer"
+      ],
+      "age_groups": [
+        "elementary",
+        "middle"
+      ],
       "ages_label": "Grades 1–8 (2026 session)",
       "provider": "Easttown Township",
       "town": "Easttown",
-      "location": "Hilltop Park, 570 Beaumont Road, Devon",
+      "location": "Hilltop Park, Beaumont Road, Devon",
       "start_date": null,
       "end_date": null,
-      "when_label": "2027 dates not posted yet. 2026 ran June 29 – July 31, weekdays 9 AM–noon",
+      "when_label": "2027 dates not posted yet. Township says camp runs weekdays in July, 9 AM–noon. The 2026 session ran June 29 – July 31",
       "cost_label": "Not listed in the 2026 announcement",
       "register_deadline": null,
-      "register_note": "Open to non-residents. Registration for the 2026 session was announced in spring. Expect something similar in 2027.",
-      "link": "https://patch.com/pennsylvania/te/easttowns-2026-summer-recreation-program-now-open-registration",
+      "register_note": "Open to non-residents (per the 2026 announcement). The township says camp info is usually posted by February.",
+      "link": "https://www.easttown.org/351/Hilltop-Park",
       "status": "tbd",
       "last_verified": "2026-10-16"
+    },
+    {
+      "register_deadline": null,
+      "start_date": "2026-10-16",
+      "end_date": "2027-01-01",
+      "status": "confirmed",
+      "last_verified": "2026-10-16",
+      "cost_label": "No fee listed",
+      "age_groups": [
+        "teen"
+      ],
+      "id": "tred-lib-teen-night",
+      "name": "Teen Library Night",
+      "category": "program",
+      "seasons": [
+        "fall",
+        "winter"
+      ],
+      "ages_label": "Teens",
+      "provider": "Chester County Library System (Tredyffrin Library)",
+      "town": "Tredyffrin",
+      "location": "King Meeting Room, Tredyffrin Library, 582 Upper Gulph Rd, Strafford",
+      "when_label": "Fridays 6:30–8:00 PM (dates listed through Jan 1, 2027; Nov 6 not listed, so check the calendar)",
+      "register_note": "Teen-planned games, discussions and activities, usually with pizza. Registration isn't mentioned. To order pizza, email Ldoan@ccls.org at least an hour before.",
+      "link": "https://ccls.libcal.com/event/15997013"
+    },
+    {
+      "register_deadline": null,
+      "start_date": "2026-10-27",
+      "end_date": "2026-10-27",
+      "status": "confirmed",
+      "last_verified": "2026-10-16",
+      "cost_label": "Free, supplies provided",
+      "age_groups": [
+        "elementary"
+      ],
+      "id": "tred-lib-upcyclers",
+      "name": "Ultimate Upcyclers (arts & crafts)",
+      "category": "program",
+      "seasons": [
+        "fall"
+      ],
+      "ages_label": "Grades 3–5",
+      "provider": "Chester County Library System (Tredyffrin Library)",
+      "town": "Tredyffrin",
+      "location": "Tyler Hedges Room, Tredyffrin Library, 582 Upper Gulph Rd, Strafford",
+      "when_label": "Tue, Oct 27, 2026 · 5:00–6:00 PM",
+      "register_note": "Registration required, and seats are limited. The event page describes it as both in person and online, so confirm which when you register.",
+      "link": "https://ccls.libcal.com/event/17606723"
+    },
+    {
+      "register_deadline": null,
+      "start_date": "2026-10-21",
+      "end_date": "2026-10-28",
+      "status": "confirmed",
+      "last_verified": "2026-10-16",
+      "cost_label": "No fee listed",
+      "age_groups": [
+        "preschool"
+      ],
+      "id": "tred-lib-toddler-storytime",
+      "name": "Toddler Storytime",
+      "category": "program",
+      "seasons": [
+        "fall"
+      ],
+      "ages_label": "18 months – 3 years",
+      "provider": "Chester County Library System (Tredyffrin Library)",
+      "town": "Tredyffrin",
+      "location": "Tyler Hedges Room, Tredyffrin Library, 582 Upper Gulph Rd, Strafford",
+      "when_label": "Wednesdays Oct 21 and 28, 2026 · 10:15–10:45 AM",
+      "register_note": "Registration is required and has closed for these dates. Check the library calendar for the next round.",
+      "link": "https://ccls.libcal.com/event/17656406"
+    },
+    {
+      "register_deadline": null,
+      "start_date": null,
+      "end_date": null,
+      "status": "ongoing",
+      "last_verified": "2026-10-16",
+      "cost_label": "Not listed",
+      "age_groups": [],
+      "id": "tred-lib-calendar",
+      "name": "Tredyffrin Library: all kids & teen programs",
+      "category": "program",
+      "seasons": [
+        "fall",
+        "winter",
+        "spring",
+        "summer"
+      ],
+      "ages_label": "Babies through teens",
+      "provider": "Chester County Library System (Tredyffrin Library)",
+      "town": "Tredyffrin",
+      "location": "582 Upper Gulph Rd, Strafford",
+      "when_label": "Year-round. New events are added monthly",
+      "register_note": "Storytimes, crafts, teen nights and more. Many need registration. Filter the calendar by audience.",
+      "link": "https://ccls.libcal.com/calendar/Tredyffrin"
+    },
+    {
+      "register_deadline": null,
+      "start_date": null,
+      "end_date": null,
+      "status": "ongoing",
+      "last_verified": "2026-10-16",
+      "cost_label": "Not listed",
+      "age_groups": [],
+      "id": "easttown-lib-calendar",
+      "name": "Easttown Library: kids & teen programs",
+      "category": "program",
+      "seasons": [
+        "fall",
+        "winter",
+        "spring",
+        "summer"
+      ],
+      "ages_label": "Babies through teens",
+      "provider": "Chester County Library System (Easttown Library)",
+      "town": "Easttown",
+      "location": "Easttown Library, Berwyn",
+      "when_label": "Year-round. See the calendar for current events",
+      "register_note": "Use the calendar's Audience filter (Family, Preschool, School Age, Young Adult). We haven't listed individual events yet.",
+      "link": "https://ccls.libcal.com/calendar/easttown"
+    },
+    {
+      "register_deadline": null,
+      "start_date": null,
+      "end_date": null,
+      "status": "ongoing",
+      "last_verified": "2026-10-16",
+      "cost_label": "Not listed",
+      "age_groups": [],
+      "id": "umly-youth-sports",
+      "name": "Upper Main Line YMCA: youth sports",
+      "category": "sports",
+      "seasons": [
+        "fall",
+        "winter",
+        "spring",
+        "summer"
+      ],
+      "ages_label": "Varies by program",
+      "provider": "Upper Main Line YMCA",
+      "town": "Berwyn",
+      "location": "1416 Berwyn-Paoli Road, Berwyn",
+      "when_label": "Seasonal sessions. Dates vary by program",
+      "register_note": "Basketball, soccer, NFL Flag Football, gymnastics, martial arts and ninja, tennis. Use the YMCA activity finder for current dates, prices and deadlines.",
+      "link": "https://ymcagbw.org/ymca-activity-finder?step=results&selectedLocations=Upper%20Main%20Line%20YMCA&selectedSort=af_date_of_day__ACS"
+    },
+    {
+      "register_deadline": null,
+      "start_date": null,
+      "end_date": null,
+      "status": "ongoing",
+      "last_verified": "2026-10-16",
+      "cost_label": "Not listed",
+      "age_groups": [],
+      "id": "umly-swim",
+      "name": "Upper Main Line YMCA: swim lessons, swim team & diving",
+      "category": "sports",
+      "seasons": [
+        "fall",
+        "winter",
+        "spring",
+        "summer"
+      ],
+      "ages_label": "Varies by program",
+      "provider": "Upper Main Line YMCA",
+      "town": "Berwyn",
+      "location": "1416 Berwyn-Paoli Road, Berwyn",
+      "when_label": "Ongoing sessions. Dates vary",
+      "register_note": "Lessons, swim team and diving. Check the program page for current sessions.",
+      "link": "https://ymcagbw.org/swimlessons"
+    },
+    {
+      "register_deadline": null,
+      "start_date": null,
+      "end_date": null,
+      "status": "ongoing",
+      "last_verified": "2026-10-16",
+      "cost_label": "Not listed",
+      "age_groups": [],
+      "id": "umly-school-break",
+      "name": "Upper Main Line YMCA: school break care & Parents' Night Out",
+      "category": "camp",
+      "seasons": [
+        "fall",
+        "winter",
+        "spring",
+        "summer"
+      ],
+      "ages_label": "School age",
+      "provider": "Upper Main Line YMCA",
+      "town": "Berwyn",
+      "location": "1416 Berwyn-Paoli Road, Berwyn",
+      "when_label": "Runs on school days off and select evenings. Dates vary",
+      "register_note": "Also offers before and after school care and summer camp. Check the program page for dates and prices.",
+      "link": "https://ymcagbw.org/school-break-care-ymca-greater-brandywine"
     }
   ]
 }

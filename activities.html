@@ -331,7 +331,7 @@
 <script>
 (function(){
   var SEASONS=[["all","All"],["fall","Fall"],["winter","Winter"],["spring","Spring"],["summer","Summer"]];
-  var AGES=[["all","All"],["preschool","Preschool (2–5)"],["elementary","Elementary (K–5)"],["middle","Middle school (6–8)"]];
+  var AGES=[["all","All"],["preschool","Preschool (2–5)"],["elementary","Elementary (K–5)"],["middle","Middle school (6–8)"],["teen","Teens (13+)"]];
   var CATS=[["all","All"],["sports","Sports"],["camp","Camps"],["program","Programs"],["event","Events"]];
   var CAT_LABEL={sports:"Sports",camp:"Camp",program:"Program",event:"Event"};
   var state={season:"all",age:"all",cat:"all"};
@@ -380,6 +380,7 @@
       days=Math.round((parse(a.register_deadline)-today())/864e5);
       if(days>=0 && days<=30) art.appendChild(el("div","badge soon","Register by "+fmt(a.register_deadline)+(days===0?" (today)":" ("+days+" day"+(days===1?"":"s")+" left)")));
     }
+    if(a.status==="ongoing") art.appendChild(el("div","badge tbd","Ongoing / year-round"));
     if(a.status==="tbd") art.appendChild(el("div","badge tbd","Dates not posted yet"));
     art.appendChild(el("h3",null,a.name));
     art.appendChild(el("p","when",a.when_label));
