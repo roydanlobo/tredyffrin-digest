@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kids' Activities in Tredyffrin-Easttown</title>
+<meta name="description" content="Seasonal kids' activities, camps, sports and family events in Tredyffrin and Easttown Townships, in one place.">
+<style>
+  :root{
+    --navy:#1c2b3a;
+    --navy-2:#26394d;
+    --accent:#2f6f4e;
+    --accent-2:#b5651d;
+    --paper:#faf8f4;
+    --card:#ffffff;
+    --line:#e3ddd2;
+    --text:#232323;
+    --muted:#5b5b5b;
+    --tag-bg:#eef2ee;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Georgia","Iowan Old Style",serif;
+    background:var(--paper);
+    color:var(--text);
+    line-height:1.55;
+  }
+  .ui{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;}
+  header{
+    background:linear-gradient(135deg,var(--navy),var(--navy-2));
+    color:#f4f1ea;
+    padding:2.6rem 1.5rem 2.2rem;
+  }
+  header .inner{max-width:780px;margin:0 auto;}
+  .township-nav{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:.82rem;
+    margin-bottom:1rem;
+  }
+  .township-nav label{color:#c9d6cd;margin-right:.5rem;}
+  .township-nav select{
+    background:rgba(255,255,255,0.1);
+    color:#f4f1ea;
+    border:1px solid rgba(255,255,255,0.32);
+    border-radius:6px;
+    padding:.3rem .6rem;
+    font-size:.82rem;
+    font-family:inherit;
+  }
+  .township-nav select option{color:#232323;}
+  header h1{
+    font-family:"Georgia",serif;
+    font-size:1.9rem;
+    margin:0 0 .4rem;
+    letter-spacing:.2px;
+  }
+  header p.tag{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:.82rem;
+    text-transform:uppercase;
+    letter-spacing:1.4px;
+    color:#c9d6cd;
+    margin:0 0 1rem;
+  }
+  header p.lede{
+    font-size:1.02rem;
+    color:#e8e3d8;
+    max-width:640px;
+    margin:0 0 1.6rem;
+  }
+  .subscribe{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.18);
+    border-radius:10px;
+    padding:1.1rem 1.3rem;
+    max-width:640px;
+  }
+  .subscribe p.st{
+    margin:0 0 .7rem;
+    font-size:.92rem;
+    color:#f4f1ea;
+  }
+  .subscribe form{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.6rem;
+  }
+  .subscribe input[type=email]{
+    flex:1 1 220px;
+    padding:.6rem .8rem;
+    border-radius:6px;
+    border:1px solid rgba(255,255,255,0.3);
+    background:#f4f1ea;
+    font-size:.9rem;
+  }
+  .subscribe input[type=submit]{
+    padding:.6rem 1.1rem;
+    border-radius:6px;
+    border:none;
+    background:var(--accent);
+    color:#fff;
+    font-weight:600;
+    font-size:.9rem;
+    cursor:pointer;
+  }
+  .subscribe input[type=submit]:hover{background:#265c40;}
+  .subscribe .fine{
+    margin:.6rem 0 0;
+    font-size:.74rem;
+    color:#c9d6cd;
+  }
+  .subscribe .fine a{color:#e8e3d8;}
+  main{max-width:780px;margin:0 auto;padding:2.2rem 1.5rem 4rem;}
+
+  .disclaimer{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    background:#fbf3e4;
+    border:1px solid #e8d9b8;
+    color:#5c4a1f;
+    font-size:.86rem;
+    padding:.85rem 1rem;
+    border-radius:8px;
+    margin-bottom:2.4rem;
+  }
+  .disclaimer strong{color:#3f3013;}
+
+  section.storyline{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:5px solid var(--accent-2);
+    border-radius:10px;
+    padding:1.4rem 1.5rem;
+    margin-bottom:2.6rem;
+  }
+  section.storyline h2{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:.78rem;
+    text-transform:uppercase;
+    letter-spacing:1.3px;
+    color:var(--accent-2);
+    margin:0 0 .7rem;
+  }
+  section.storyline h3{margin:0 0 .6rem;font-size:1.2rem;}
+  .arc{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    display:flex;
+    flex-wrap:wrap;
+    gap:.5rem;
+    margin:.9rem 0 0;
+    font-size:.82rem;
+  }
+  .arc .step{
+    background:var(--tag-bg);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:.35rem .8rem;
+    color:var(--navy);
+  }
+  .arc .arrow{color:var(--muted);align-self:center;}
+
+  h2.section-heading{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:.8rem;
+    text-transform:uppercase;
+    letter-spacing:1.4px;
+    color:var(--muted);
+    border-bottom:1px solid var(--line);
+    padding-bottom:.5rem;
+    margin:0 0 1.4rem;
+  }
+
+  article.meeting{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:1.5rem 1.6rem 1.7rem;
+    margin-bottom:1.6rem;
+  }
+  article.meeting .meta{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:.5rem;
+    margin-bottom:.7rem;
+  }
+  article.meeting .date{
+    font-size:1.15rem;
+    font-weight:700;
+    color:var(--navy);
+    font-family:Georgia,serif;
+  }
+  article.meeting .links{
+    font-size:.8rem;
+  }
+  article.meeting .links a{
+    color:var(--accent);
+    text-decoration:none;
+    margin-left:.8rem;
+    border-bottom:1px solid transparent;
+  }
+  article.meeting .links a:hover{border-bottom-color:var(--accent);}
+
+  .tags{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    display:flex;flex-wrap:wrap;gap:.4rem;
+    margin-bottom:1rem;
+  }
+  .tags span{
+    background:var(--tag-bg);
+    color:var(--accent);
+    border-radius:20px;
+    padding:.22rem .7rem;
+    font-size:.72rem;
+    font-weight:600;
+    letter-spacing:.3px;
+  }
+
+  ul.highlights{margin:0;padding-left:1.15rem;}
+  ul.highlights li{margin-bottom:.55rem;}
+  ul.highlights li:last-child{margin-bottom:0;}
+  ul.highlights .num{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    color:var(--accent-2);
+    font-weight:700;
+  }
+
+  .watchflag{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    display:inline-block;
+    margin-top:1rem;
+    font-size:.78rem;
+    background:#fdf0e6;
+    color:#8a4c14;
+    border:1px solid #f0d3b3;
+    border-radius:6px;
+    padding:.4rem .7rem;
+  }
+
+  footer{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    max-width:780px;
+    margin:0 auto;
+    padding:0 1.5rem 3rem;
+    color:var(--muted);
+    font-size:.8rem;
+    border-top:1px solid var(--line);
+    padding-top:1.5rem;
+  }
+  footer a{color:var(--accent);}
+
+  @media (max-width:520px){
+    article.meeting .meta{flex-direction:column;align-items:flex-start;}
+    article.meeting .links a{margin-left:0;margin-right:.9rem;}
+  }
+
+  .nav-links{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-size:.82rem;margin-bottom:1rem;}
+  .nav-links a{color:#c9d6cd;text-decoration:none;margin-right:1rem;border-bottom:1px solid transparent;}
+  .nav-links a:hover{border-bottom-color:#c9d6cd;}
+  .nav-links a.here{color:#fff;font-weight:600;}
+  .filters{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;margin-bottom:1.6rem;}
+  .fgroup{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin-bottom:.7rem;}
+  .fgroup .fl{font-size:.72rem;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);width:4.2rem;}
+  .chip{border:1px solid var(--line);background:var(--card);color:var(--navy);border-radius:20px;padding:.3rem .8rem;font-size:.8rem;cursor:pointer;font-family:inherit;}
+  .chip[aria-pressed=true]{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .count{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-size:.82rem;color:var(--muted);margin:0 0 1rem;}
+  article.act{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1.3rem 1.5rem 1.4rem;margin-bottom:1.2rem;}
+  article.act h3{margin:0 0 .35rem;font-size:1.2rem;color:var(--navy);}
+  article.act .when{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-size:.9rem;font-weight:600;color:var(--accent-2);margin:0 0 .7rem;}
+  dl.facts{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;display:grid;grid-template-columns:5.5rem 1fr;gap:.25rem .8rem;margin:0 0 .8rem;font-size:.88rem;}
+  dl.facts dt{color:var(--muted);}
+  dl.facts dd{margin:0;}
+  .note{font-size:.92rem;margin:0 0 .8rem;}
+  .act-foot{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem;font-size:.78rem;color:var(--muted);}
+  .act-foot a{color:var(--accent);font-weight:600;text-decoration:none;font-size:.85rem;}
+  .act-foot a:hover{text-decoration:underline;}
+  .badge{display:inline-block;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-size:.72rem;font-weight:700;border-radius:6px;padding:.2rem .55rem;margin-bottom:.6rem;}
+  .badge.soon{background:#fdf0e6;color:#8a4c14;border:1px solid #f0d3b3;}
+  .badge.tbd{background:var(--tag-bg);color:var(--muted);border:1px solid var(--line);}
+  .empty{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--muted);padding:2rem 0;}
+  @media (max-width:520px){dl.facts{grid-template-columns:1fr;gap:0}dl.facts dt{margin-top:.4rem}.fgroup .fl{width:100%}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <div class="nav-links ui">
+      <a href="index.html">Township meeting digest</a>
+      <a href="activities.html" class="here">Kids&rsquo; activities</a>
+    </div>
+    <p class="tag ui">Unofficial guide &middot; Tredyffrin &amp; Easttown Townships, Chester County, PA</p>
+    <h1>Things for kids to do in T/E</h1>
+    <p class="lede">Township programs, sports, camps and family events for every season, collected in one place and linked back to the official source so you can register there.</p>
+
+    <div class="subscribe">
+      <p class="st">Get a heads-up when registration opens for the next season.</p>
+      <form action="https://buttondown.com/api/emails/embed-subscribe/SummarizeMyDigest" method="post" class="embeddable-buttondown-form">
+        <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address">
+        <input type="hidden" value="1" name="embed">
+        <input type="hidden" name="tag" value="activities">
+        <input type="submit" value="Subscribe">
+      </form>
+      <p class="fine">No spam. This is the same list as the township meeting digest, and it isn&rsquo;t split by topic yet, so you&rsquo;ll get both.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="disclaimer">
+    <strong>Unofficial and independently maintained.</strong> Not affiliated with either township or the school district. Details are copied from the official pages linked on each listing and can change, so confirm dates, costs and deadlines at the source before you register. Each listing shows when it was last checked.
+  </div>
+
+  <div class="filters" id="filters">
+    <div class="fgroup" data-key="season"><span class="fl">Season</span></div>
+    <div class="fgroup" data-key="age"><span class="fl">Age</span></div>
+    <div class="fgroup" data-key="cat"><span class="fl">Type</span></div>
+  </div>
+  <p class="count" id="count" aria-live="polite"></p>
+  <div id="list"></div>
+  <noscript><p class="empty">This page needs JavaScript to show the listings.</p></noscript>
+</main>
+
+<footer>
+  Listings are kept in <a href="activities.json">activities.json</a>. Know about a program that&rsquo;s missing, or spot a mistake? Reply to any email from the list. Sources: <a href="https://www.tredyffrin.org/Departments/Parks-Recreation">Tredyffrin Parks &amp; Recreation</a>, <a href="https://patch.com/pennsylvania/te">Patch Tredyffrin-Easttown</a>.
+</footer>
+
+<script>
+(function(){
+  var SEASONS=[["all","All"],["fall","Fall"],["winter","Winter"],["spring","Spring"],["summer","Summer"]];
+  var AGES=[["all","All"],["preschool","Preschool (2–5)"],["elementary","Elementary (K–5)"],["middle","Middle school (6–8)"]];
+  var CATS=[["all","All"],["sports","Sports"],["camp","Camps"],["program","Programs"],["event","Events"]];
+  var CAT_LABEL={sports:"Sports",camp:"Camp",program:"Program",event:"Event"};
+  var state={season:"all",age:"all",cat:"all"};
+  var data=[];
+  var listEl=document.getElementById("list"), countEl=document.getElementById("count");
+
+  function parse(s){ if(!s) return null; var p=s.split("-"); return new Date(+p[0],+p[1]-1,+p[2]); }
+  function today(){ var d=new Date(); return new Date(d.getFullYear(),d.getMonth(),d.getDate()); }
+  function fmt(s){ return parse(s).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}); }
+  function el(tag,cls,text){ var e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e; }
+
+  function buildChips(){
+    [["season",SEASONS],["age",AGES],["cat",CATS]].forEach(function(g){
+      var box=document.querySelector('[data-key="'+g[0]+'"]');
+      g[1].forEach(function(o){
+        var b=el("button","chip",o[1]); b.type="button"; b.setAttribute("aria-pressed",o[0]==="all");
+        b.addEventListener("click",function(){
+          state[g[0]]=o[0];
+          box.querySelectorAll(".chip").forEach(function(c){ c.setAttribute("aria-pressed",c===b); });
+          render();
+        });
+        box.appendChild(b);
+      });
+    });
+  }
+
+  function isPast(a){
+    var end=parse(a.end_date||a.start_date);
+    return a.end_date!==null && end && end<today();
+  }
+  function sortKey(a){
+    var d=parse(a.start_date); return d? d.getTime() : 9e15;
+  }
+  function matches(a){
+    if(state.season!=="all" && a.seasons.indexOf(state.season)<0) return false;
+    if(state.age!=="all" && a.age_groups.length && a.age_groups.indexOf(state.age)<0) return false;
+    if(state.cat!=="all" && a.category!==state.cat) return false;
+    return true;
+  }
+  function addFact(dl,k,v){ if(!v) return; dl.appendChild(el("dt",null,k)); dl.appendChild(el("dd",null,v)); }
+
+  function card(a){
+    var art=el("article","act");
+    var days=null;
+    if(a.register_deadline){
+      days=Math.round((parse(a.register_deadline)-today())/864e5);
+      if(days>=0 && days<=30) art.appendChild(el("div","badge soon","Register by "+fmt(a.register_deadline)+(days===0?" (today)":" ("+days+" day"+(days===1?"":"s")+" left)")));
+    }
+    if(a.status==="tbd") art.appendChild(el("div","badge tbd","Dates not posted yet"));
+    art.appendChild(el("h3",null,a.name));
+    art.appendChild(el("p","when",a.when_label));
+    var dl=el("dl","facts");
+    addFact(dl,"Ages",a.ages_label);
+    addFact(dl,"Where",a.location+(a.town?" ("+a.town+")":""));
+    addFact(dl,"Cost",a.cost_label);
+    addFact(dl,"Run by",a.provider);
+    if(a.register_deadline) addFact(dl,"Deadline",fmt(a.register_deadline));
+    art.appendChild(dl);
+    if(a.register_note) art.appendChild(el("p","note",a.register_note));
+    var foot=el("div","act-foot");
+    var link=el("a",null,"Official details & registration →"); link.href=a.link; link.rel="noopener"; link.target="_blank";
+    foot.appendChild(link);
+    foot.appendChild(el("span",null,CAT_LABEL[a.category]+" · checked "+fmt(a.last_verified)));
+    art.appendChild(foot);
+    return art;
+  }
+
+  function render(){
+    var items=data.filter(function(a){return !isPast(a) && matches(a);}).sort(function(a,b){return sortKey(a)-sortKey(b);});
+    listEl.textContent="";
+    if(!items.length){ listEl.appendChild(el("p","empty","Nothing matches those filters yet. Try another season or age.")); countEl.textContent=""; return; }
+    items.forEach(function(a){ listEl.appendChild(card(a)); });
+    countEl.textContent=items.length+" listing"+(items.length===1?"":"s")+" · upcoming first, undated at the end";
+  }
+
+  buildChips();
+  fetch("activities.json").then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(j){ data=j.listings; render(); })
+    .catch(function(){ listEl.appendChild(el("p","empty","Couldn't load the listings. Please refresh the page.")); });
+})();
+</script>
+</body>
+</html>
