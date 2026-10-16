@@ -368,7 +368,7 @@
     var d=parse(a.start_date); return d? d.getTime() : 9e15;
   }
   function matches(a){
-    if(state.area!=="all" && a.area!==state.area) return false;
+    if(state.area!=="all" && (a.area||"te")!==state.area) return false;
     if(state.season!=="all" && a.seasons.indexOf(state.season)<0) return false;
     if(state.age!=="all" && a.age_groups.length && a.age_groups.indexOf(state.age)<0) return false;
     if(state.cat!=="all" && a.category!==state.cat) return false;
