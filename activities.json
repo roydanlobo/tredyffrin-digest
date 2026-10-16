@@ -396,24 +396,26 @@
       "end_date": null,
       "status": "ongoing",
       "last_verified": "2026-10-16",
-      "cost_label": "Not listed",
-      "age_groups": [],
-      "id": "umly-youth-sports",
-      "name": "Upper Main Line YMCA: youth sports",
-      "category": "sports",
-      "seasons": [
-        "fall",
-        "winter",
-        "spring",
-        "summer"
+      "cost_label": "Not listed. Members get discounted rates and financial assistance is available",
+      "age_groups": [
+        "preschool",
+        "elementary",
+        "middle",
+        "teen"
       ],
-      "ages_label": "Varies by program",
       "provider": "Upper Main Line YMCA",
       "town": "Berwyn",
       "location": "1416 Berwyn-Paoli Road, Berwyn",
-      "when_label": "Seasonal sessions. Dates vary by program",
-      "register_note": "Basketball, soccer, NFL Flag Football, gymnastics, martial arts and ninja, tennis. Use the YMCA activity finder for current dates, prices and deadlines.",
-      "link": "https://ymcagbw.org/ymca-activity-finder?step=results&selectedLocations=Upper%20Main%20Line%20YMCA&selectedSort=af_date_of_day__ACS"
+      "seasons": [
+        "winter"
+      ],
+      "id": "umly-basketball",
+      "name": "Youth Basketball Leagues & Clinics",
+      "category": "sports",
+      "ages_label": "Ages 3–17 (Jr. NBA leagues 5–17, clinics 3–14)",
+      "when_label": "Winter I (Nov–Jan) and Winter II (Jan–Mar). Branch-specific dates not posted",
+      "register_note": "Berwyn is listed as a location, but the Y says programming varies by location. Registration usually opens several weeks before a season. Check the Activity Finder for Berwyn times, or call 610-647-9622.",
+      "link": "https://ymcagbw.org/youth-sports/basketball"
     },
     {
       "register_deadline": null,
@@ -421,23 +423,86 @@
       "end_date": null,
       "status": "ongoing",
       "last_verified": "2026-10-16",
-      "cost_label": "Not listed",
-      "age_groups": [],
-      "id": "umly-swim",
-      "name": "Upper Main Line YMCA: swim lessons, swim team & diving",
+      "cost_label": "Not listed. Members get discounted rates and financial assistance is available",
+      "age_groups": [
+        "preschool",
+        "elementary",
+        "middle",
+        "teen"
+      ],
+      "provider": "Upper Main Line YMCA",
+      "town": "Berwyn",
+      "location": "1416 Berwyn-Paoli Road, Berwyn",
+      "seasons": [
+        "fall",
+        "spring"
+      ],
+      "id": "umly-flag-football",
+      "name": "NFL Flag Football",
       "category": "sports",
+      "ages_label": "Ages 4–17, grouped by age",
+      "when_label": "Fall (Sept–Nov) and Spring (Apr–Jun). One practice a week plus Saturday games",
+      "register_note": "Berwyn is one of three Chester County locations. YMCA membership isn't required. Registration includes a shirt, flag belt and end-of-season award. Spring registration usually opens several weeks before the season.",
+      "link": "https://ymcagbw.org/youth-sports/flag-football-ymca"
+    },
+    {
+      "register_deadline": null,
+      "start_date": null,
+      "end_date": null,
+      "status": "ongoing",
+      "last_verified": "2026-10-16",
+      "cost_label": "Not listed. Members get discounted rates and financial assistance is available",
+      "age_groups": [
+        "preschool",
+        "elementary",
+        "middle",
+        "teen"
+      ],
+      "provider": "Upper Main Line YMCA",
+      "town": "Berwyn",
+      "location": "1416 Berwyn-Paoli Road, Berwyn",
       "seasons": [
         "fall",
         "winter",
         "spring",
         "summer"
       ],
-      "ages_label": "Varies by program",
+      "id": "umly-tennis",
+      "name": "Youth Tennis (including Tiny Tennis)",
+      "category": "sports",
+      "ages_label": "Ages 3 and up",
+      "when_label": "Ongoing. See the Upper Main Line tennis schedule",
+      "register_note": "Register online or call the Tennis Office at 610-647-9622, ext. 2034. Courts can be reserved through the YGBW mobile app.",
+      "link": "https://ymcagbw.org/upper-main-line-tennis-schedule"
+    },
+    {
+      "register_deadline": null,
+      "start_date": null,
+      "end_date": null,
+      "status": "tbd",
+      "last_verified": "2026-10-16",
+      "cost_label": "Not listed. Members get discounted rates and financial assistance is available",
+      "age_groups": [
+        "preschool",
+        "elementary",
+        "middle",
+        "teen"
+      ],
       "provider": "Upper Main Line YMCA",
       "town": "Berwyn",
       "location": "1416 Berwyn-Paoli Road, Berwyn",
-      "when_label": "Ongoing sessions. Dates vary",
-      "register_note": "Lessons, swim team and diving. Check the program page for current sessions.",
+      "seasons": [
+        "fall",
+        "winter",
+        "spring",
+        "summer"
+      ],
+      "id": "umly-swim",
+      "name": "Swim Lessons",
+      "category": "sports",
+      "ages_label": "6 months and up (parent/child, preschool 3–5, youth 6–12, teen/adult 13+)",
+      "when_label": "Two-month semesters. Branch dates not posted",
+      "register_note": "This is the Y's general lessons page, and it doesn't confirm which sessions run in Berwyn. Filter the Activity Finder by Upper Main Line or call 610-647-9622. Membership isn't required.",
       "link": "https://ymcagbw.org/swimlessons"
     },
     {
@@ -446,24 +511,25 @@
       "end_date": null,
       "status": "ongoing",
       "last_verified": "2026-10-16",
-      "cost_label": "Not listed",
-      "age_groups": [],
-      "id": "umly-school-break",
-      "name": "Upper Main Line YMCA: school break care & Parents' Night Out",
-      "category": "camp",
-      "seasons": [
-        "fall",
-        "winter",
-        "spring",
-        "summer"
+      "cost_label": "See the Y's teen programs page",
+      "age_groups": [
+        "teen"
       ],
-      "ages_label": "School age",
       "provider": "Upper Main Line YMCA",
       "town": "Berwyn",
       "location": "1416 Berwyn-Paoli Road, Berwyn",
-      "when_label": "Runs on school days off and select evenings. Dates vary",
-      "register_note": "Also offers before and after school care and summer camp. Check the program page for dates and prices.",
-      "link": "https://ymcagbw.org/school-break-care-ymca-greater-brandywine"
+      "seasons": [
+        "fall",
+        "winter",
+        "spring"
+      ],
+      "id": "umly-teen-room",
+      "name": "Teen Room",
+      "category": "program",
+      "ages_label": "Teens",
+      "when_label": "Schedule on the Y's teen programs page",
+      "register_note": "The Y's schedule page lists the Teen Room at the Upper Main Line branch. We haven't checked hours.",
+      "link": "https://ymcagbw.org/youth-development/teen-programs-ymca"
     }
   ]
 }
