@@ -25,7 +25,8 @@
       "register_note": "Families who want to decorate a trunk register through an online form on the township page.",
       "link": "https://www.tredyffrin.org/Departments/Parks-Recreation/Community-Events/Trunk-or-Treat",
       "status": "confirmed",
-      "last_verified": "2026-10-16"
+      "last_verified": "2026-10-16",
+      "area": "te"
     },
     {
       "id": "tennis-fall2-2026",
@@ -50,7 +51,8 @@
       "register_note": "Register with Universal Rackets. Township page says slots are limited.",
       "link": "https://www.tredyffrin.org/Departments/Parks-Recreation/Camps-Recreation/Tennis",
       "status": "confirmed",
-      "last_verified": "2026-10-16"
+      "last_verified": "2026-10-16",
+      "area": "te"
     },
     {
       "id": "soccer-shots-fall-2026",
@@ -74,7 +76,8 @@
       "register_note": "Enroll through the Soccer Shots link on the township page. Check there for current openings.",
       "link": "https://www.tredyffrin.org/Departments/Parks-Recreation/Camps-Recreation/Soccer-Shots",
       "status": "confirmed",
-      "last_verified": "2026-10-16"
+      "last_verified": "2026-10-16",
+      "area": "te"
     },
     {
       "id": "winter-rec-2026-27",
@@ -99,7 +102,8 @@
       "register_note": "Pre-registration required. Download the PDF form, then mail or drop it off with a check at the Township Building, 1100 DuPortail Rd, Berwyn. $15 late fee after the deadline. Open to non-residents.",
       "link": "https://www.tredyffrin.org/Departments/Parks-Recreation/Camps-Recreation/Winter-Recreation",
       "status": "confirmed",
-      "last_verified": "2026-10-16"
+      "last_verified": "2026-10-16",
+      "area": "te"
     },
     {
       "id": "tree-lighting-2026",
@@ -125,7 +129,8 @@
       "register_note": "Photos with Santa and Mrs. Claus, music, treats from the Tredyffrin Parks Foundation, letters to Santa. Food trucks to be announced.",
       "link": "https://www.tredyffrin.org/Departments/Parks-Recreation/Community-Events/Tree-Lighting-Celebration",
       "status": "confirmed",
-      "last_verified": "2026-10-16"
+      "last_verified": "2026-10-16",
+      "area": "te"
     },
     {
       "id": "mini-hoopers",
@@ -151,7 +156,8 @@
       "register_note": "Last session registered online at pahoopsacademy.com/minihoopers (TeamSnap account required). Township lists this as a fall, winter and spring program.",
       "link": "https://www.tredyffrin.org/Departments/Parks-Recreation/Camps-Recreation/Mini-Hoopers-Basketball",
       "status": "tbd",
-      "last_verified": "2026-10-16"
+      "last_verified": "2026-10-16",
+      "area": "te"
     },
     {
       "id": "tred-pickleball",
@@ -174,7 +180,8 @@
       "register_note": "Listed by the township for spring and summer. We have not yet checked the details.",
       "link": "https://www.tredyffrin.org/Departments/Parks-Recreation/Camps-Recreation/Pickleball",
       "status": "tbd",
-      "last_verified": "2026-10-16"
+      "last_verified": "2026-10-16",
+      "area": "te"
     },
     {
       "id": "tred-summer-day-camp",
@@ -196,7 +203,8 @@
       "register_note": "Registration usually opens in spring. We have not yet checked this year's details.",
       "link": "https://www.tredyffrin.org/Departments/Parks-Recreation/Camps-Recreation/Summer-Day-Camp",
       "status": "tbd",
-      "last_verified": "2026-10-16"
+      "last_verified": "2026-10-16",
+      "area": "te"
     },
     {
       "id": "tred-basketball-camp",
@@ -218,7 +226,8 @@
       "register_note": "Listed by the township for summer. We have not yet checked the details.",
       "link": "https://www.tredyffrin.org/Departments/Parks-Recreation/Camps-Recreation/Basketball-Camp",
       "status": "tbd",
-      "last_verified": "2026-10-16"
+      "last_verified": "2026-10-16",
+      "area": "te"
     },
     {
       "id": "tred-lacrosse",
@@ -240,7 +249,8 @@
       "register_note": "Listed by the township for summer. We have not yet checked the details.",
       "link": "https://www.tredyffrin.org/Departments/Parks-Recreation/Camps-Recreation/Lacrosse",
       "status": "tbd",
-      "last_verified": "2026-10-16"
+      "last_verified": "2026-10-16",
+      "area": "te"
     },
     {
       "id": "easttown-summer-rec",
@@ -265,7 +275,8 @@
       "register_note": "Open to non-residents (per the 2026 announcement). The township says camp info is usually posted by February.",
       "link": "https://www.easttown.org/351/Hilltop-Park",
       "status": "tbd",
-      "last_verified": "2026-10-16"
+      "last_verified": "2026-10-16",
+      "area": "te"
     },
     {
       "register_deadline": null,
@@ -290,7 +301,8 @@
       "location": "King Meeting Room, Tredyffrin Library, 582 Upper Gulph Rd, Strafford",
       "when_label": "Fridays 6:30–8:00 PM (dates listed through Jan 1, 2027; Nov 6 not listed, so check the calendar)",
       "register_note": "Teen-planned games, discussions and activities, usually with pizza. Registration isn't mentioned. To order pizza, email Ldoan@ccls.org at least an hour before.",
-      "link": "https://ccls.libcal.com/event/15997013"
+      "link": "https://ccls.libcal.com/event/15997013",
+      "area": "te"
     },
     {
       "register_deadline": null,
@@ -314,7 +326,8 @@
       "location": "Tyler Hedges Room, Tredyffrin Library, 582 Upper Gulph Rd, Strafford",
       "when_label": "Tue, Oct 27, 2026 · 5:00–6:00 PM",
       "register_note": "Registration required, and seats are limited. The event page describes it as both in person and online, so confirm which when you register.",
-      "link": "https://ccls.libcal.com/event/17606723"
+      "link": "https://ccls.libcal.com/event/17606723",
+      "area": "te"
     },
     {
       "register_deadline": null,
@@ -338,7 +351,8 @@
       "location": "Tyler Hedges Room, Tredyffrin Library, 582 Upper Gulph Rd, Strafford",
       "when_label": "Wednesdays Oct 21 and 28, 2026 · 10:15–10:45 AM",
       "register_note": "Registration is required and has closed for these dates. Check the library calendar for the next round.",
-      "link": "https://ccls.libcal.com/event/17656406"
+      "link": "https://ccls.libcal.com/event/17656406",
+      "area": "te"
     },
     {
       "register_deadline": null,
@@ -363,7 +377,8 @@
       "location": "582 Upper Gulph Rd, Strafford",
       "when_label": "Year-round. New events are added monthly",
       "register_note": "Storytimes, crafts, teen nights and more. Many need registration. Filter the calendar by audience.",
-      "link": "https://ccls.libcal.com/calendar/Tredyffrin"
+      "link": "https://ccls.libcal.com/calendar/Tredyffrin",
+      "area": "te"
     },
     {
       "register_deadline": null,
@@ -388,7 +403,8 @@
       "location": "Easttown Library, Berwyn",
       "when_label": "Year-round. See the calendar for current events",
       "register_note": "Use the calendar's Audience filter (Family, Preschool, School Age, Young Adult). We haven't listed individual events yet.",
-      "link": "https://ccls.libcal.com/calendar/easttown"
+      "link": "https://ccls.libcal.com/calendar/easttown",
+      "area": "te"
     },
     {
       "register_deadline": null,
@@ -415,7 +431,8 @@
       "ages_label": "Ages 3–17 (Jr. NBA leagues 5–17, clinics 3–14)",
       "when_label": "Winter I (Nov–Jan) and Winter II (Jan–Mar). Branch-specific dates not posted",
       "register_note": "Berwyn is listed as a location, but the Y says programming varies by location. Registration usually opens several weeks before a season. Check the Activity Finder for Berwyn times, or call 610-647-9622.",
-      "link": "https://ymcagbw.org/youth-sports/basketball"
+      "link": "https://ymcagbw.org/youth-sports/basketball",
+      "area": "te"
     },
     {
       "register_deadline": null,
@@ -443,7 +460,8 @@
       "ages_label": "Ages 4–17, grouped by age",
       "when_label": "Fall (Sept–Nov) and Spring (Apr–Jun). One practice a week plus Saturday games",
       "register_note": "Berwyn is one of three Chester County locations. YMCA membership isn't required. Registration includes a shirt, flag belt and end-of-season award. Spring registration usually opens several weeks before the season.",
-      "link": "https://ymcagbw.org/youth-sports/flag-football-ymca"
+      "link": "https://ymcagbw.org/youth-sports/flag-football-ymca",
+      "area": "te"
     },
     {
       "register_deadline": null,
@@ -473,7 +491,8 @@
       "ages_label": "Ages 3 and up",
       "when_label": "Ongoing. See the Upper Main Line tennis schedule",
       "register_note": "Register online or call the Tennis Office at 610-647-9622, ext. 2034. Courts can be reserved through the YGBW mobile app.",
-      "link": "https://ymcagbw.org/upper-main-line-tennis-schedule"
+      "link": "https://ymcagbw.org/upper-main-line-tennis-schedule",
+      "area": "te"
     },
     {
       "register_deadline": null,
@@ -503,7 +522,8 @@
       "ages_label": "6 months and up (parent/child, preschool 3–5, youth 6–12, teen/adult 13+)",
       "when_label": "Two-month semesters. Branch dates not posted",
       "register_note": "This is the Y's general lessons page, and it doesn't confirm which sessions run in Berwyn. Filter the Activity Finder by Upper Main Line or call 610-647-9622. Membership isn't required.",
-      "link": "https://ymcagbw.org/swimlessons"
+      "link": "https://ymcagbw.org/swimlessons",
+      "area": "te"
     },
     {
       "register_deadline": null,
@@ -529,7 +549,137 @@
       "ages_label": "Teens",
       "when_label": "Schedule on the Y's teen programs page",
       "register_note": "The Y's schedule page lists the Teen Room at the Upper Main Line branch. We haven't checked hours.",
-      "link": "https://ymcagbw.org/youth-development/teen-programs-ymca"
+      "link": "https://ymcagbw.org/youth-development/teen-programs-ymca",
+      "area": "te"
+    },
+    {
+      "area": "nearby",
+      "register_deadline": null,
+      "start_date": "2026-10-24",
+      "end_date": "2026-10-24",
+      "status": "confirmed",
+      "last_verified": "2026-10-16",
+      "cost_label": "Not listed",
+      "age_groups": [
+        "preschool",
+        "elementary",
+        "middle"
+      ],
+      "seasons": [
+        "fall"
+      ],
+      "id": "ew-trunk-or-treat-2026",
+      "name": "East Whiteland Trunk or Treat",
+      "category": "event",
+      "ages_label": "Ages not listed (family event)",
+      "provider": "East Whiteland Township with KDM PTO",
+      "town": "East Whiteland",
+      "location": "209 Conestoga Road, Frazer",
+      "when_label": "Sat, Oct 24, 2026 · 2–4 PM",
+      "register_note": "Registration for car decorating and pumpkin painting isn't open yet. The township says more details are coming.",
+      "link": "https://www.eastwhiteland.org/news_detail_T2_R302.php"
+    },
+    {
+      "area": "nearby",
+      "register_deadline": null,
+      "start_date": "2026-11-08",
+      "end_date": "2026-11-08",
+      "status": "confirmed",
+      "last_verified": "2026-10-16",
+      "cost_label": "Not listed",
+      "age_groups": [
+        "preschool",
+        "elementary",
+        "middle",
+        "teen"
+      ],
+      "seasons": [
+        "fall"
+      ],
+      "id": "ew-community-day-2026",
+      "name": "East Whiteland Community Day",
+      "category": "event",
+      "ages_label": "All ages",
+      "provider": "East Whiteland Township",
+      "town": "East Whiteland",
+      "location": "Valley Stream Park",
+      "when_label": "Sun, Nov 8, 2026 · 1–4 PM (rescheduled from Sept 20 because of rain)",
+      "register_note": "A free meal requires registration. The township says the form was reset with a new deadline it hasn't stated. Earlier registrants will be contacted directly.",
+      "link": "https://www.eastwhiteland.org/news_detail_T2_R308.php"
+    },
+    {
+      "area": "nearby",
+      "register_deadline": null,
+      "start_date": null,
+      "end_date": null,
+      "status": "ongoing",
+      "last_verified": "2026-10-16",
+      "cost_label": "Varies. See the activity guide",
+      "age_groups": [],
+      "seasons": [
+        "fall",
+        "winter",
+        "spring",
+        "summer"
+      ],
+      "id": "um-parks-rec",
+      "name": "Upper Merion Parks & Recreation programs",
+      "category": "program",
+      "ages_label": "Varies by program",
+      "provider": "Upper Merion Township Parks & Recreation",
+      "town": "Upper Merion",
+      "location": "Community Center, 431 W Valley Forge Rd, King of Prussia",
+      "when_label": "Quarterly. The Fall 2026 activity guide is online",
+      "register_note": "Classes, youth sports (UMYAA), events and camps. Sign up through the township's online registration (credit card) or in person at the Community Center, 610-265-1071.",
+      "link": "https://www.umtownship.org/267"
+    },
+    {
+      "area": "nearby",
+      "register_deadline": null,
+      "start_date": null,
+      "end_date": null,
+      "status": "tbd",
+      "last_verified": "2026-10-16",
+      "cost_label": "Not listed",
+      "age_groups": [],
+      "seasons": [
+        "summer"
+      ],
+      "id": "um-camps",
+      "name": "Upper Merion camps",
+      "category": "camp",
+      "ages_label": "See township camps page",
+      "provider": "Upper Merion Township Parks & Recreation",
+      "town": "Upper Merion",
+      "location": "King of Prussia area",
+      "when_label": "2027 dates not posted yet",
+      "register_note": "The township's camps page names ADC, ADC2, Camp Beechtree and Consortium for the Arts. We haven't checked details.",
+      "link": "https://www.umtownship.org/170"
+    },
+    {
+      "area": "nearby",
+      "register_deadline": null,
+      "start_date": null,
+      "end_date": null,
+      "status": "tbd",
+      "last_verified": "2026-10-16",
+      "cost_label": "Not listed. Enrolling requires a Wayne Art Center membership (Sept 1 – Aug 31)",
+      "age_groups": [],
+      "seasons": [
+        "fall",
+        "winter",
+        "spring"
+      ],
+      "id": "wac-youth-classes",
+      "name": "Wayne Art Center: youth & teen art classes",
+      "category": "program",
+      "ages_label": "Ages 2–15+, by class",
+      "provider": "Wayne Art Center",
+      "town": "Wayne",
+      "location": "Wayne Art Center, Wayne",
+      "when_label": "Fall, winter and spring sessions. The catalog page we could read still showed Winter 2025, so check for current dates",
+      "register_note": "Classes run late afternoons on weekdays and Saturday mornings. Register through the center's online system.",
+      "link": "https://wayneart.org/art-education/youth-teen-education/education-youth-teen-education-catalog"
     }
   ]
 }

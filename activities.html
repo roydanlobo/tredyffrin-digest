@@ -294,7 +294,7 @@
     </div>
     <p class="tag ui">Unofficial guide &middot; Tredyffrin &amp; Easttown Townships, Chester County, PA</p>
     <h1>Things for kids to do in T/E</h1>
-    <p class="lede">Township programs, sports, camps and family events for every season, collected in one place and linked back to the official source so you can register there.</p>
+    <p class="lede">Township programs, sports, camps and family events for every season, in T/E and nearby towns, collected in one place and linked back to the official source so you can register there.</p>
 
     <div class="subscribe">
       <p class="st">Get a heads-up when registration opens for the next season.</p>
@@ -315,6 +315,7 @@
   </div>
 
   <div class="filters" id="filters">
+    <div class="fgroup" data-key="area"><span class="fl">Area</span></div>
     <div class="fgroup" data-key="season"><span class="fl">Season</span></div>
     <div class="fgroup" data-key="age"><span class="fl">Age</span></div>
     <div class="fgroup" data-key="cat"><span class="fl">Type</span></div>
@@ -332,9 +333,10 @@
 (function(){
   var SEASONS=[["all","All"],["fall","Fall"],["winter","Winter"],["spring","Spring"],["summer","Summer"]];
   var AGES=[["all","All"],["preschool","Preschool (2–5)"],["elementary","Elementary (K–5)"],["middle","Middle school (6–8)"],["teen","Teens (13+)"]];
+  var AREAS=[["all","All"],["te","Tredyffrin-Easttown"],["nearby","Nearby (within ~10 miles)"]];
   var CATS=[["all","All"],["sports","Sports"],["camp","Camps"],["program","Programs"],["event","Events"]];
   var CAT_LABEL={sports:"Sports",camp:"Camp",program:"Program",event:"Event"};
-  var state={season:"all",age:"all",cat:"all"};
+  var state={area:"all",season:"all",age:"all",cat:"all"};
   var data=[];
   var listEl=document.getElementById("list"), countEl=document.getElementById("count");
 
@@ -344,7 +346,7 @@
   function el(tag,cls,text){ var e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e; }
 
   function buildChips(){
-    [["season",SEASONS],["age",AGES],["cat",CATS]].forEach(function(g){
+    [["area",AREAS],["season",SEASONS],["age",AGES],["cat",CATS]].forEach(function(g){
       var box=document.querySelector('[data-key="'+g[0]+'"]');
       g[1].forEach(function(o){
         var b=el("button","chip",o[1]); b.type="button"; b.setAttribute("aria-pressed",o[0]==="all");
@@ -366,6 +368,7 @@
     var d=parse(a.start_date); return d? d.getTime() : 9e15;
   }
   function matches(a){
+    if(state.area!=="all" && a.area!==state.area) return false;
     if(state.season!=="all" && a.seasons.indexOf(state.season)<0) return false;
     if(state.age!=="all" && a.age_groups.length && a.age_groups.indexOf(state.age)<0) return false;
     if(state.cat!=="all" && a.category!==state.cat) return false;
