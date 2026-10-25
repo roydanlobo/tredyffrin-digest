@@ -9,13 +9,11 @@ only fire for a meeting that's new as of that script run.
 
 Usage:
     python catchup_email.py --township tredyffrin
-    python catchup_email.py --township upper-merion
 
 Requires BUTTONDOWN_API_KEY in the environment, same as generate_digest.py.
 Creates a DRAFT — nothing is emailed to anyone until you open it in the
-Buttondown dashboard and hit Send yourself. If BUTTONDOWN_TAG_TREDYFFRIN /
-BUTTONDOWN_TAG_UPPER_MERION is set (see generate_digest.py's docstring),
-the draft is targeted to just that township's tagged subscribers.
+Buttondown dashboard and hit Send yourself. If BUTTONDOWN_TAG_TREDYFFRIN is set (see generate_digest.py's docstring),
+the draft is targeted to just that tag's subscribers.
 """
 
 import argparse

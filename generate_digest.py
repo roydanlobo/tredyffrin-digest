@@ -23,8 +23,8 @@ WHAT IT DOES
 4. Saves the result into that township's digest_data_<township>.json (one
    entry per meeting).
 5. Re-renders a generic HTML page and that township's RSS feed from *all*
-   entries in that file. (The real, hand-styled site pages — index.html for
-   Tredyffrin, upper-merion.html for Upper Merion — are still updated by
+   entries in that file. (The real, hand-styled site page — index.html for
+   Tredyffrin — is still updated by
    hand; merging that into this render step is on the to-do list, same as
    it was before multi-township support.)
 6. For a genuinely new meeting (not a re-run correcting an existing one),
@@ -61,12 +61,11 @@ REQUIREMENTS
     export BUTTONDOWN_API_KEY=...
 
     # Optional — only needed if you're using one Buttondown newsletter with
-    # per-township tags (see README) rather than emailing every subscriber
-    # every digest. Get tag IDs from Buttondown's Tags dashboard, or
-    # `GET /v1/tags`. If unset for a township, drafts for that township go
-    # out untargeted (i.e. to everyone) — you'll get a warning printed.
+    # tags (see README) rather than emailing every subscriber every digest.
+    # Get tag IDs from Buttondown's Tags dashboard, or `GET /v1/tags`. If
+    # unset, drafts go out untargeted (i.e. to everyone) — you'll get a
+    # warning printed.
     export BUTTONDOWN_TAG_TREDYFFRIN=sub_tag_...
-    export BUTTONDOWN_TAG_UPPER_MERION=sub_tag_...
 
 NOTE ON BOT PROTECTION
 -----------------------
@@ -76,8 +75,7 @@ browsers through — pointing to TLS/behavioral fingerprinting rather than
 a simple header check. download_pdf() below uses a headless Chromium
 browser (via Playwright) instead of `requests` specifically to get past
 this — the same approach should work for any other township's site, since
-it isn't Tredyffrin-specific, and it's since been confirmed working
-against umtownship.org (Upper Merion) too. If a township's site turns out
+it isn't Tredyffrin-specific. If a township's site turns out
 to block even Playwright, --file (a manually-downloaded copy) is the
 fallback.
 
@@ -85,7 +83,6 @@ USAGE
 -----
     # From a URL on the township's site:
     python generate_digest.py --township tredyffrin --url "https://www.tredyffrin.org/files/.../07202026-bos-public-meeting-minutes.pdf" --date "2026-07-20"
-    python generate_digest.py --township upper-merion --url "https://www.umtownship.org/AgendaCenter/ViewFile/Minutes/_03122026-438" --date "2026-03-12"
 
     # From a PDF you already have on disk:
     python generate_digest.py --township tredyffrin --file ./minutes.pdf --date "2026-07-20"
@@ -127,17 +124,6 @@ TOWNSHIPS = {
         "video_url": "https://www.tredyffrin.org/Departments/Communications/Tredyffrin-Township-TV",
         "buttondown_tag_env": "BUTTONDOWN_TAG_TREDYFFRIN",
     },
-    "upper-merion": {
-        "label": "Upper Merion Township, Montgomery County, PA",
-        "short_label": "Upper Merion Township",
-        "homepage": "https://www.umtownship.org/",
-        "data_file": Path("digest_data_upper-merion.json"),
-        "rss_file": Path("feed-upper-merion.xml"),
-        "generic_html_file": Path("upper-merion-digest-generated.html"),
-        "site_page": "upper-merion.html",
-        "video_url": "https://vimeo.com/channels/umtbos",
-        "buttondown_tag_env": "BUTTONDOWN_TAG_UPPER_MERION",
-    },
     # "limerick" was disabled here on purpose, not deleted. Its "Resident
     # Packet" PDFs run 100+ pages (one was 33MB) and needed real one-off
     # engineering (extract_minutes_section() below) to isolate just the
@@ -146,7 +132,7 @@ TOWNSHIPS = {
     # on disk (limerick.html, digest_data_limerick.json, feed-limerick.xml)
     # but are no longer linked from the live site or built by this script.
     # To bring it back: un-comment this block, re-add its dropdown option
-    # and footer link to index.html/upper-merion.html, and set
+    # and footer link to index.html, and set
     # BUTTONDOWN_TAG_LIMERICK if using tags.
     # "limerick": {
     #     "label": "Limerick Township, Montgomery County, PA",
@@ -341,7 +327,7 @@ def extract_minutes_section(pdf_path: Path, target_date: str, max_scan_pages: in
     "bundled_packet" flag in TOWNSHIPS) — pull out just the pages belonging
     to the Minutes section for `target_date` (YYYY-MM-DD), so a packet feeds
     summarize_with_claude() the same clean single-meeting text that
-    Tredyffrin/Upper Merion's one-meeting-per-PDF sites already do.
+    Tredyffrin's one-meeting-per-PDF site already does.
 
     Built and tested against one real Limerick "Resident Packet" (August 19,
     2026): pages 1-3 were that meeting's own Agenda, pages 13-19 and 20-24
@@ -500,8 +486,7 @@ def render_rss(entries: list, township: dict) -> None:
     """Write a standard RSS 2.0 feed so residents can subscribe with any
     feed reader, and so the digest can be picked up by aggregators (e.g.
     Patch, other local sites) without a bespoke integration per platform.
-    One feed per township, so subscribing to Upper Merion's feed never pulls
-    in Tredyffrin items or vice versa."""
+    One feed per township."""
     import html as html_lib
     from datetime import datetime, timezone, timedelta
     from email.utils import format_datetime
@@ -553,7 +538,7 @@ def create_buttondown_draft(entry: dict, township: dict) -> None:
     If a Buttondown tag ID is configured for this township (see the
     BUTTONDOWN_TAG_* env vars in the module docstring), the draft is filtered
     to only that tag's subscribers — so a Tredyffrin digest doesn't land in
-    an Upper Merion-only subscriber's inbox. If no tag ID is set, the draft
+    another list's subscriber inbox. If no tag ID is set, the draft
     goes out untargeted (i.e. to every subscriber on the newsletter) and a
     warning is printed, so you don't accidentally cross-post without
     noticing.

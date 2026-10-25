@@ -7,20 +7,18 @@ decided.
 
 **Status:** live at https://digest.platformlens.net/. Tredyffrin Township: 7
 real meetings summarized (February–July 2026), validated with a positive
-Nextdoor/Patch interest poll. Upper Merion Township: 4 real meetings
-summarized (June–August 2026). Limerick Township was onboarded and had 2
+Nextdoor/Patch interest poll. Limerick Township was onboarded and had 2
 real meetings summarized, then paused — see "Limerick: paused, not deleted"
 below.
 
 ## What's here
 
 - `index.html` — the Tredyffrin digest page.
-- `upper-merion.html` — the Upper Merion digest page. Both pages have a
-  "Viewing digests for" dropdown at the top to switch between them.
-- `feed-tredyffrin.xml` / `feed-upper-merion.xml` — one RSS 2.0 feed per
-  township, so subscribing to one never pulls in the other's items.
-- `digest_data_tredyffrin.json` / `digest_data_upper-merion.json` — the
-  underlying data (date, tags, highlights, source URL) per township. This
+- `activities.html` / `activities.json` — the separate kids' activities page
+  and its data (edit the JSON to add listings).
+- `feed-tredyffrin.xml` — the RSS 2.0 feed for the Tredyffrin digest.
+- `digest_data_tredyffrin.json` — the
+  underlying data (date, tags, highlights, source URL). This
   is the source of truth; the RSS feeds (and a generic fallback HTML page,
   see below) are rendered from it.
 - `generate_digest.py` — the pipeline: given a minutes PDF (URL or local
@@ -31,7 +29,7 @@ below.
 
   Note: the script renders to `<township>-digest-generated.html`, a plain
   fallback template — it does **not** update the real hand-styled pages
-  (`index.html`, `upper-merion.html`) directly. Merging those is on the
+  (`index.html`) directly. Merging that is on the
   to-do list below; for now, updating the real pages after a new meeting is
   a manual step (or ask the assistant to do it, same as for the initial
   backfill).
@@ -64,8 +62,7 @@ looks like TLS/behavioral fingerprinting rather than a simple header check,
 since a confirmed-real URL that loads fine by hand still 403'd from
 `requests`. `download_pdf()` drives a real headless Chromium browser via
 Playwright instead, which gets past it because it *is* a real browser as
-far as the site can tell. This isn't Tredyffrin-specific code — it's since
-been confirmed working for Upper Merion too. If a township's site changes
+far as the site can tell. If a township's site changes
 its protection or blocks even Playwright, `--file` (pointing at a
 manually-downloaded copy) is the fallback either way.
 
@@ -78,7 +75,6 @@ manually-downloaded copy) is the fallback either way.
 
    ```bash
    python generate_digest.py --township tredyffrin --url "<minutes-pdf-url>" --date "2026-09-08"
-   python generate_digest.py --township upper-merion --url "<minutes-pdf-url>" --date "2026-05-14"
    ```
 
    `--township` defaults to `tredyffrin` if omitted, so old commands from
@@ -88,11 +84,11 @@ manually-downloaded copy) is the fallback either way.
    These digests state facts about local government — dollar amounts, vote
    counts, who said what — and an AI summary of a scanned PDF can misread a
    number. A quick check is cheap insurance.
-4. Update the real page (`index.html` or `upper-merion.html`) with the new
+4. Update the real page (`index.html`) with the new
    entry — this isn't automated yet (see "What's here" above).
 
 To just rebuild a township's RSS/generic HTML from existing data without
-adding a new meeting: `python generate_digest.py --township upper-merion --render-only`.
+adding a new meeting: `python generate_digest.py --township tredyffrin --render-only`.
 
 ### Note on the February–April 2026 Tredyffrin entries
 
@@ -104,23 +100,6 @@ way to seed history, but it means those four entries haven't been through
 the exact same pipeline as the May–July ones. Worth a spot-check against
 the source PDFs (linked on each entry) before treating them as fully
 verified, same as any other digest.
-
-### Upper Merion is now real content, and a quirk worth knowing
-
-Upper Merion's site (umtownship.org) disallows all automated fetching in
-its robots.txt, so unlike Tredyffrin, the assistant can't read or summarize
-its minutes itself — every Upper Merion entry had to be run through the
-local Playwright pipeline. Four real meetings (June–August 2026) are now
-in `digest_data_upper-merion.json` and on `upper-merion.html` this way.
-
-One quirk found while building those: Upper Merion's AgendaCenter sometimes
-uploads the actual **minutes** content under the **Agenda** URL category
-(`/AgendaCenter/ViewFile/Agenda/...`) instead of a separate Minutes
-category — a CivicPlus-platform quirk, not a bug in this project. The
-script doesn't care about URL folder naming, it just downloads whatever URL
-you give it, but *you* need to check each PDF's actual content (does it
-show votes/outcomes, or just a proposed agenda?) before treating a given
-URL as authoritative, regardless of which folder it's filed under.
 
 ### Limerick: paused, not deleted
 
@@ -141,47 +120,42 @@ Nothing was thrown away: `limerick.html`, `digest_data_limerick.json`, and
 longer linked from the live site or referenced in `TOWNSHIPS`. To revive
 it: un-comment the `"limerick"` block in `TOWNSHIPS` (see the comment right
 above it in `generate_digest.py`), re-add its dropdown option and footer
-link to `index.html`/`upper-merion.html`, and re-add its cross-links there.
+link to `index.html`, and re-add its cross-links there.
 If you do, the site's `CNAME`/GitHub Pages setup doesn't need anything
 new — `limerick.html` still deploys automatically as part of the repo,
 just wasn't being linked to.
 
-## Buttondown: one newsletter, two tags (currently unused — free plan)
+## Buttondown: one newsletter, tags (segmentation not yet purchased)
 
-Both townships share one Buttondown newsletter (`SummarizeMyDigest`)
-rather than running separate accounts. Each page's subscribe form still
-silently tags the subscriber (`tredyffrin` or `upper-merion` — see the
-hidden `tag` field in each page's form), but **tagging & segmentation is a
-paid Buttondown add-on ($9/mo)**, not included on the free plan. As of now,
-none of the `BUTTONDOWN_TAG_*` env vars below are set, so every draft goes
-out to every subscriber regardless of which page they signed up from — the
-per-township tag on signup is stored (harmless, and useful later if this
-gets upgraded) but doesn't currently filter anything. This is a deliberate
-choice at 9 subscribers, not a bug — each page's subscribe-form fine print
-says as much, and points to that township's RSS feed for anyone who wants
-just one township without the email noise.
+The digest and the kids' activities page share one Buttondown newsletter
+(`SummarizeMyDigest`). Each page's subscribe form silently tags the
+subscriber: `tredyffrin` (digest page) or `activities` (activities page);
+see the hidden `tag` field in each form. **Tagging & segmentation is a paid
+Buttondown add-on ($9/mo)** and isn't on the free plan, so right now the
+tag only labels subscribers (the tags show up in a subscriber export). It
+doesn't filter anything.
 
-If/when it's worth paying for (bigger list, people complaining about
-getting both townships), here's how to make targeted sending actually
-work:
+Rule until the add-on is bought: never send an activities email to the whole
+list, because most subscribers signed up for township digests only. If the
+activities list is tiny, email those few people yourself (BCC). Once
+segmentation is purchased:
 
-1. In Buttondown, go to Tags and create two tags: `tredyffrin` and
-   `upper-merion`.
+1. In Buttondown, go to Tags and make sure `tredyffrin` and `activities`
+   exist.
 2. Get each tag's ID (`GET /v1/tags` with your API key, or the dashboard).
-3. Set them as environment variables:
+3. Set the digest tag as an environment variable:
    ```bash
    export BUTTONDOWN_TAG_TREDYFFRIN=sub_tag_...
-   export BUTTONDOWN_TAG_UPPER_MERION=sub_tag_...
    ```
-4. `generate_digest.py` and `catchup_email.py` will then filter each
-   township's draft to just that tag's subscribers automatically. If a
-   tag ID isn't set, drafts for that township go out untargeted (to
-   everyone on the newsletter) and the script prints a warning so you
-   notice before sending.
+4. `generate_digest.py` and `catchup_email.py` will then filter the digest
+   draft to just that tag's subscribers. If the ID isn't set, drafts go out
+   untargeted (to everyone on the newsletter) and the script prints a
+   warning so you notice before sending. Untagged older subscribers would
+   need tagging `tredyffrin` first.
 
 ### Catching up new subscribers
 
-`catchup_email.py --township tredyffrin` (or `upper-merion`) rolls up every
+`catchup_email.py --township tredyffrin` rolls up every
 entry in that township's data file into a single DRAFT email — useful for
 a subscriber who joins today and would otherwise miss all the history.
 Like every other draft here, it's created as a draft only; nothing sends
@@ -224,7 +198,7 @@ until you review it in the Buttondown dashboard and hit Send.
 ## Open next steps
 
 1. Merge `generate_digest.py`'s output template with the styled pages so a
-   script run updates `index.html`/`upper-merion.html` directly, not a
+   script run updates `index.html` directly, not a
    separate generic file.
 2. Automate discovery of new meetings per township (each township needs
    its own logic — see the module docstring in `generate_digest.py` for

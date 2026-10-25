@@ -263,12 +263,7 @@
 <header>
   <div class="inner">
     <div class="township-nav ui">
-      <label for="township-select">Viewing digests for:</label>
-      <select id="township-select" onchange="if(this.value) window.location.href=this.value;">
-        <option value="index.html" selected>Tredyffrin Township</option>
-        <option value="upper-merion.html">Upper Merion Township</option>
-      </select>
-      <a href="activities.html" style="color:#e8e3d8;margin-left:1rem;">Looking for kids&rsquo; activities? &rarr;</a>
+      <a href="activities.html" style="color:#e8e3d8;">Looking for kids&rsquo; activities? &rarr;</a>
     </div>
     <p class="tag ui">Unofficial digest &middot; Tredyffrin Township, Chester County, PA</p>
     <h1>What happened at your township meeting</h1>
@@ -285,15 +280,11 @@
       <form action="https://buttondown.com/api/emails/embed-subscribe/SummarizeMyDigest" method="post" class="embeddable-buttondown-form">
         <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address">
         <input type="hidden" value="1" name="embed">
-        <!-- Tags this subscriber "tredyffrin". Tag-based sending needs
-             Buttondown's paid segmentation add-on, not in use right now, so
-             this doesn't filter anything yet — it's just stored for later.
-             Every subscriber currently gets every township's digest. See
-             README's Buttondown section for details/setup. -->
+        <!-- Tags this subscriber "tredyffrin" so township-digest readers can be told apart from kids'-activities subscribers (tag "activities"). Tag-based sending needs Buttondown's paid segmentation add-on, so for now this only labels the subscriber. -->
         <input type="hidden" name="tag" value="tredyffrin">
         <input type="submit" value="Subscribe">
       </form>
-      <p class="fine">No spam &mdash; sent only when a new digest is posted, roughly twice a month. Right now this list isn&rsquo;t split by township, so you&rsquo;ll get every digest we publish, not just Tredyffrin&rsquo;s. Unsubscribe anytime, or if you only want Tredyffrin, use <a href="feed-tredyffrin.xml">the RSS feed</a> instead of email.</p>
+      <p class="fine">No spam &mdash; sent only when a new digest is posted, roughly twice a month. Unsubscribe anytime, or use <a href="feed-tredyffrin.xml">the RSS feed</a> instead of email.</p>
     </div>
   </div>
 </header>
@@ -514,7 +505,7 @@
 </main>
 
 <footer class="ui">
-  Built as a prototype exploring whether Chester County residents would benefit from plain-language digests of local government meetings. Not affiliated with Tredyffrin Township. Source minutes: <a href="https://www.tredyffrin.org/Minutes-and-agenda" target="_blank" rel="noopener">tredyffrin.org</a>. Also available as an <a href="feed-tredyffrin.xml">RSS feed</a>. Also covering <a href="upper-merion.html">Upper Merion Township</a> (Montgomery County).
+  Built as a prototype exploring whether Chester County residents would benefit from plain-language digests of local government meetings. Not affiliated with Tredyffrin Township. Source minutes: <a href="https://www.tredyffrin.org/Minutes-and-agenda" target="_blank" rel="noopener">tredyffrin.org</a>. Also available as an <a href="feed-tredyffrin.xml">RSS feed</a>.
 </footer>
 
 <script data-goatcounter="https://platformlens.goatcounter.com/count"
